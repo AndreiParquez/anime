@@ -129,7 +129,7 @@ function Home() {
     return (
         <>
         
-        <div className="App bg-zinc-900 md:px-80  text-white">
+        <div className="App bg-zinc-900 px-0 xl:px-56 sm:px-2 lg:px-40 md:px-32 text-white">
         <Navbar />
             
             <div className="relative flex items-center pt-16" style={{ backgroundImage: `url(${cover})`, backgroundSize: 'cover', height: '300px' }}>
@@ -194,11 +194,11 @@ function Home() {
                                 background: `linear-gradient(to right, ${anime.coverImage.color}, rgba(0, 0, 0, 0.5))`,                                zIndex: 1
                             }}></div>
                             <div className=" z-10 relative flex space-x-2 items-center p-2">
-                                <div className="w-1/2">
+                                <div className="w-1/2 md:w-1/3 ">
                                     <img className="  h-full  object-cover shadow-lg" src={anime.coverImage.large} alt={anime.title.userPreferred} />
                                     
                                 </div>
-                                <div className="w-1/2  text-white">
+                                <div className="w-1/2 md:w-2/3  text-white">
                                     <p className=" font-extrabold   drop-shadow truncate-2-lines">{anime.title.english}</p>
                                     
                                     <div className="flex space-x-2  items-center drop-shadow text-yellow-400">

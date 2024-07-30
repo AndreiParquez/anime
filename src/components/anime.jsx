@@ -124,7 +124,7 @@ function AnimePage() {
   return (
     <>
       <Navbar/>
-      <div className="main-content bg-zinc-900 text-white">
+      <div className="main-content bg-zinc-900 text-white md:px-80">
         <section>
           <motion.div
             className="anime-container"
@@ -191,7 +191,7 @@ function AnimePage() {
                   <div className="episode-container">
                     <h1 className="text-base font-bold text-gray-300 ">Episodes:</h1>
                     <motion.div
-                      className="font-bold mt-1 grid grid-cols-6 px-3 gap-2 py-2 rounded  sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8"
+                      className="font-bold mt-1 grid grid-cols-6 px-3 gap-2 py-2 rounded  sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-12"
                       initial={{ opacity: 0, y: 50 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
