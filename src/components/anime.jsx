@@ -8,7 +8,7 @@ import Loader from './loader';
 
 const ProxyApi = "https://proxy.jackparquez1.workers.dev/?=";
 const animeapi = "/anime/";
-const AvailableServers = ['https://anime.jackparquez1.workers.dev'];
+const AvailableServers = ['https://anime1.jackparquez1.workers.dev'];
 
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];

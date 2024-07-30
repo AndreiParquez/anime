@@ -19,7 +19,7 @@ const IndexApi = "/home";
 const recentapi = "/recent/";
 const upcommingapi = "/upcoming/";
 
-const AvailableServers = ['https://anime.jackparquez1.workers.dev'];
+const AvailableServers = ['https://anime1.jackparquez1.workers.dev'];
 function getApiServer() {
     return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
 }
@@ -340,7 +340,7 @@ function Home() {
                     <h2 id="latest" className="text-lg font-custom tracking-widest font-semibold mb-4">Recent <span className='text-blue-300'>Releases</span></h2>
                     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                         {recentAnimes.map((anime, index) => (
-                            <Link to={`/anime/${anime.id}`} key={index} className="block">
+                            <Link to={`/anime/${anime.title}`} key={index} className="block">
                                 <motion.div
                                     className="poster bg-zinc-900 overflow-hidden"
                                     initial={{ opacity: 0, y: 20 }}

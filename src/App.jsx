@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/home';
 import AnimePage from './components/anime';
-import Anime from './components/anime copy';
 import EpisodePage from './components/episode';
 
 function App() {
