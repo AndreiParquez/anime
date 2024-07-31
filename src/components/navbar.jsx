@@ -4,6 +4,7 @@ import { IoMenu } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/hxh.png';
 import { IoSearchCircle } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 
 
@@ -31,6 +32,7 @@ const Navbar = ({ toggleLoginModal }) => {
                 <div onClick={toggleNav} className='md:hidden z-30'>
                     {nav ? <AiOutlineClose size={30} className='text-violet-500' /> : <IoMenu size={30} className='text-violet-500' />}
                 </div>
+                <Link to='/'>
                 <div className='flex md:mx-0 mx-auto'>
                     <a className='md:text-xl items-center text-center text-base'>
                         <p className='font-bold font-custom tracking-wider'>Anime</p>
@@ -38,6 +40,7 @@ const Navbar = ({ toggleLoginModal }) => {
                     </a>
                     <img src={logo} alt='logo' className='h-9 w-9' />
                 </div>
+                </Link>
                 <div className='md:flex items-center'>
                     <div id="search-div" className='relative '>
                         <form onSubmit={handleSearchSubmit}>

@@ -128,9 +128,10 @@ function Home() {
 
     return (
         <>
+        <Navbar />
         
         <div className="App bg-zinc-900 px-0 xl:px-56 sm:px-2 lg:px-40 md:px-32 text-white">
-        <Navbar />
+        
             
             <div className="relative flex items-center pt-16" style={{ backgroundImage: `url(${cover})`, backgroundSize: 'cover', height: '300px' }}>
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent"></div>
