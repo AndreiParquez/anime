@@ -6,6 +6,7 @@ import img from '../assets/hxh.png';
 import { IoIosWarning } from "react-icons/io";
 import Loader from './loader';
 import { motion } from 'framer-motion';
+import Footer from './footer';
 
 const ProxyApi = "https://proxy.jackparquez1.workers.dev/?=";
 const episodeapi = "/episode/";
@@ -139,6 +140,7 @@ const EpisodePage = () => {
           <div className='text-white'>No episode data available</div>
         )}
       </div>
+      <Footer />
     </>
   );
 };

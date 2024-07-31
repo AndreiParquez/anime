@@ -13,6 +13,7 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { FaHashtag } from 'react-icons/fa';
 //import { set } from 'video.js/dist/types/tech/middleware';
+import Footer from './footer';
 
 const ProxyApi = "https://proxy.jackparquez1.workers.dev/?=";
 const IndexApi = "/home";
@@ -383,6 +384,7 @@ function Home() {
                 </div>
             </footer>
         </div>
+        <Footer />
         </>
     );
 }

@@ -14,7 +14,7 @@ function App() {
         <Route path="/anime/:id" element={<AnimePage />} />
         <Route path="/episode/:id/:episode_id" element={<EpisodePage />} />
       </Routes>
-      <Footer />
+      
     </Router>
   );
 }

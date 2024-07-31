@@ -4,6 +4,7 @@ import Loader from './loader';
 import Navbar from './navbar';
 import ErrorPage from './notfound';  // Import the Error component
 import { motion } from 'framer-motion';
+import Footer from './footer';
 
 // Utility functions
 const ProxyApi = "https://proxy.jackparquez1.workers.dev/?u=";
@@ -119,6 +120,7 @@ const SearchResults = () => {
     }
 
     return (
+        <>
         <div className="App bg-zinc-900 px-0 xl:px-56 sm:px-2 lg:px-40 md:px-32 text-white">
             <Navbar />
             <section className="p-4 mt-16">
@@ -159,6 +161,8 @@ const SearchResults = () => {
             </section>
             {loading && page > 1 && <Loader />}
         </div>
+        <Footer />
+        </>
     );
 };
 

@@ -6,6 +6,7 @@ import { HiPlay } from "react-icons/hi2";
 import Navbar from './navbar';
 import Loader from './loader';
 import Errorpage from './notfound';
+import Footer from './footer';
 
 const ProxyApi = "https://proxy.jackparquez1.workers.dev/?=";
 const animeapi = "/anime/";
@@ -271,6 +272,7 @@ const AnimePage = () => {
           </div>
         </section>
       </div>
+      <Footer />
     </>
   );
 };
