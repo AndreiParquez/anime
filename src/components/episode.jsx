@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 const ProxyApi = "https://proxy.jackparquez1.workers.dev/?=";
 const episodeapi = "/episode/";
 
-const AvailableServers = ['https://1.jackparquez1.workers.dev'];
+const AvailableServers = ['https://2.jackparquez1.workers.dev','https://1.jackparquez1.workers.dev','https://3.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://5.jackparquez1.workers.dev'];
 
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
