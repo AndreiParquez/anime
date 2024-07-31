@@ -8,7 +8,7 @@ import Loader from './loader';
 import Errorpage from './notfound';
 import Footer from './footer';
 
-const ProxyApi = "https://proxy.jackparquez1.workers.dev/?=";
+const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const animeapi = "/anime/";
 const recomendationapi = "/recommendations/";
 const AvailableServers = ['https://2.jackparquez1.workers.dev','https://1.jackparquez1.workers.dev','https://3.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://5.jackparquez1.workers.dev'];

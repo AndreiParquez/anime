@@ -15,7 +15,7 @@ import { FaHashtag } from 'react-icons/fa';
 //import { set } from 'video.js/dist/types/tech/middleware';
 import Footer from './footer';
 
-const ProxyApi = "https://proxy.jackparquez1.workers.dev/?=";
+const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const IndexApi = "/home";
 const recentapi = "/recent/";
 const upcommingapi = "/upcoming/";

@@ -8,7 +8,8 @@ import Loader from './loader';
 import { motion } from 'framer-motion';
 import Footer from './footer';
 
-const ProxyApi = "https://proxy.jackparquez1.workers.dev/?=";
+const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
+
 const episodeapi = "/episode/";
 
 const AvailableServers = ['https://2.jackparquez1.workers.dev','https://1.jackparquez1.workers.dev','https://3.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://5.jackparquez1.workers.dev'];
