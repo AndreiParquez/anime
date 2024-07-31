@@ -27,7 +27,7 @@ async function getJson(path, errCount = 0) {
 
     if (errCount > 0) {
         console.log("Retrying fetch using proxy");
-        url = ProxyApi + url;
+        url = ProxyApi + encodeURIComponent(url);  // Encode URL for safety
     }
 
     try {
@@ -38,9 +38,11 @@ async function getJson(path, errCount = 0) {
         return await response.json();
     } catch (errors) {
         console.error(errors);
+        await new Promise(resolve => setTimeout(resolve, 1000));  // Add a delay before retrying
         return getJson(path, errCount + 1);
     }
 }
+
 
 function sentenceCase(str) {
     if (str === null || str === "") return false;

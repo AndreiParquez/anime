@@ -29,22 +29,28 @@ async function getJson(path, errCount = 0) {
     const ApiServer = getApiServer();
     let url = ApiServer + path;
 
-    if (errCount > 5) {
+    if (errCount > 2) {
         throw new Error(`Too many errors while fetching ${url}`);
     }
 
     if (errCount > 0) {
-        url = ProxyApi + url;
+        console.log("Retrying fetch using proxy");
+        url = ProxyApi + encodeURIComponent(url);  // Encode URL for safety
     }
 
     try {
         const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Network response was not ok ${response.statusText}`);
+        }
         return await response.json();
     } catch (errors) {
         console.error(errors);
+        await new Promise(resolve => setTimeout(resolve, 1000));  // Add a delay before retrying
         return getJson(path, errCount + 1);
     }
 }
+
 
 function Home() {
     const [popularAnimes, setPopularAnimes] = useState([]);

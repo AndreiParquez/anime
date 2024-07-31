@@ -23,28 +23,27 @@ async function getJson(path, errCount = 0) {
   let url = ApiServer + path;
 
   if (errCount > 2) {
-    throw new Error(`Too many errors while fetching ${url}`);
+      throw new Error(`Too many errors while fetching ${url}`);
   }
 
   if (errCount > 0) {
-    url = ProxyApi + url;
+      console.log("Retrying fetch using proxy");
+      url = ProxyApi + encodeURIComponent(url);  // Encode URL for safety
   }
-
-  console.log(`Fetching data from: ${url}`);
 
   try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Network response was not ok ${response.statusText}`);
-    }
-    const data = await response.json();
-    console.log(`Fetched data:`, data);
-    return data;
+      const response = await fetch(url);
+      if (!response.ok) {
+          throw new Error(`Network response was not ok ${response.statusText}`);
+      }
+      return await response.json();
   } catch (errors) {
-    console.error(`Error fetching ${url}:`, errors);
-    return getJson(path, errCount + 1);
+      console.error(errors);
+      await new Promise(resolve => setTimeout(resolve, 1000));  // Add a delay before retrying
+      return getJson(path, errCount + 1);
   }
 }
+
 
 const EpisodePage = () => {
   const { episode_id } = useParams();
