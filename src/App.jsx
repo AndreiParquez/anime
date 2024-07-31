@@ -3,6 +3,7 @@ import Home from './components/home';
 import AnimePage from './components/anime';
 import EpisodePage from './components/episode';
 import Search from './components/search';
+import Footer from './components/footer';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/anime/:id" element={<AnimePage />} />
         <Route path="/episode/:id/:episode_id" element={<EpisodePage />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
