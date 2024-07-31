@@ -368,7 +368,7 @@ function Home() {
                 </div>
             </section>
 
-            {/* Upcoming Releases Carousel */}
+            
             
 
             {isLoading && (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import img from '../assets/hxh.jpg';
 import { HiPlay } from "react-icons/hi2";
@@ -9,7 +9,8 @@ import Errorpage from './notfound';
 
 const ProxyApi = "https://proxy.jackparquez1.workers.dev/?=";
 const animeapi = "/anime/";
-const AvailableServers = ['https://1.jackparquez1.workers.dev'];
+const recomendationapi = "/recommendations/";
+const AvailableServers = ['https://2.jackparquez1.workers.dev'];
 
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
@@ -43,12 +44,13 @@ async function getJson(path, errCount = 0) {
   }
 }
 
-function AnimePage() {
+const AnimePage = () => {
   const { id } = useParams();
   const [animeData, setAnimeData] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [episodeList, setEpisodeList] = useState([]);
+  const [recommendationError, setRecommendationError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -73,6 +75,15 @@ function AnimePage() {
             genres: anime.genre ? anime.genre.split(",") : anime.genres || ["Unknown"],
             episodes: anime.episodes || []
           });
+
+          // Fetch recommendations
+          try {
+            const recommendationsData = await getJson(recomendationapi + id);
+            setRecommendations(recommendationsData?.results || []);
+          } catch (recError) {
+            console.error(`Error loading recommendations:`, recError);
+            setRecommendationError("No recommendations available.");
+          }
         } else {
           throw new Error("No data returned");
         }
@@ -98,17 +109,13 @@ function AnimePage() {
   };
 
   if (loading) {
-    return (
-      <Loader />
-    );
+    return <Loader />;
   }
 
   if (error) {
     return (
-      <div className="h-screen flex flex-col  justify-center">
-        
+      <div className="h-screen flex flex-col justify-center">
         <Errorpage message={error} />
-        
       </div>
     );
   }
@@ -123,7 +130,7 @@ function AnimePage() {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="main-content bg-zinc-900 text-white md:px-80">
         <section>
           <motion.div
@@ -136,9 +143,7 @@ function AnimePage() {
               <div className="relative w-full h-64">
                 <div
                   className="absolute inset-0 bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url(${animeData.image})`,
-                  }}
+                  style={{ backgroundImage: `url(${animeData.image})` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-900"></div>
                 <div className="absolute bottom-0 left-0 z-10 p-4 w-full">
@@ -147,22 +152,21 @@ function AnimePage() {
                     <span className="text-[9px] font-semibold border px-1 rounded">HD</span>
                     <span className="text-xs tracking-widest font-bold text-gray-300">{animeData.lang}</span>
                   </div>
-                  <div className="flex text-gray-300 space-x-2 ">
+                  <div className="flex text-gray-300 space-x-2">
                     <span className="year">{animeData.type}</span>
                     <span className="">Genre: <span className='text-sm text-violet-300 ml-2 tracking-widest'>{animeData.genres.join(' | ')}</span></span>
                   </div>
                 </div>
               </div>
               <div className="details col-6 px-3">
-                <div className="mid" style={{ margin: '20px 0' }}>
-                </div>
+                <div className="mid" style={{ margin: '20px 0' }}></div>
                 <div className="mid">
-                  <button onClick={handleWatchNow} className="rounded bg-violet-600 p-2 w-full flex justify-center items-center font-bold text-white hover:bg-white hover:text-violet-600 transition-colors duration-300 ease-in-out transform ">
-                    <HiPlay className='size-5'/> <span>Watch Now</span>
+                  <button onClick={handleWatchNow} className="rounded bg-violet-600 p-2 w-full flex justify-center items-center font-bold text-white hover:bg-white hover:text-violet-600 transition-colors duration-300 ease-in-out transform">
+                    <HiPlay className='size-5' /> <span>Watch Now</span>
                   </button>
                 </div>
                 <div className="text-gray-400 text-sm mt-2">
-                  <p className=" text-base font-bold text-gray-300">Synopsis:</p>
+                  <p className="text-base font-bold text-gray-300">Synopsis:</p>
                   <div className="mx-2 indent-4">{animeData.synopsis}</div>
                 </div>
                 <div className="grid grid-cols-2 my-3">
@@ -189,9 +193,9 @@ function AnimePage() {
                 </div>
                 <section id="watch">
                   <div className="episode-container">
-                    <h1 className="text-base font-bold text-gray-300 ">Episodes:</h1>
+                    <h1 className="text-base font-bold text-gray-300">Episodes:</h1>
                     <motion.div
-                      className="font-bold mt-1 grid grid-cols-6 px-3 gap-2 py-2 rounded  sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-12"
+                      className="font-bold mt-1 grid grid-cols-6 px-3 gap-2 py-2 rounded sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-12"
                       initial={{ opacity: 0, y: 50 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
@@ -212,9 +216,62 @@ function AnimePage() {
             </div>
           </motion.div>
         </section>
+
+        {/* Recommendations Section */}
+        <section className="p-4">
+          <div>
+            <h2 id="recommendations" className="text-lg font-custom tracking-widest font-semibold mb-4">
+              Recommended <span className='text-blue-300'>Anime</span>
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {recommendationError ? (
+                <p className="text-white">{recommendationError}</p>
+              ) : recommendations.length > 0 ? (
+                recommendations.map((recAnime, index) => {
+                  // Extract the preferred title
+                  const title = recAnime.title?.userPreferred || 'Unknown Title';
+
+                  return (
+                    <Link to={`/anime/${recAnime.title.userPreferred}`} key={recAnime.id} className="block">
+                      <motion.div
+                        className="poster bg-zinc-900 overflow-hidden"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                      >
+                        <div id="shadow2" className="shadow">
+                          <img
+                            className="lzy_img w-full h-64 object-cover"
+                            src={recAnime.coverImage?.large || img}
+                            alt={title}
+                          />
+                        </div>
+                        <div className="la-details p-2 text-white">
+                          <div className="items-center">
+                            <p className="text-xs font-semibold">{title}</p>
+                            <div className="flex justify-between items-center text-gray-400">
+                              <div className="text-xs font-custom">
+                                EP {recAnime.episodes || 'N/A'}
+                              </div>
+                              <div className="p-1 font-custom rounded-lg text-xs font-bold text-red-500 tracking-wider">
+                                {title.toLowerCase().includes("dub") ? "DUB" : "SUB"}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    </Link>
+                  );
+                })
+              ) : (
+                <p className="text-white">No recommendations available.</p>
+              )}
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );
-}
+};
 
 export default AnimePage;

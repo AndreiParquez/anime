@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Loader from './loader';
 import Navbar from './navbar';
-import Error from './notfound';  // Import the Error component
+import ErrorPage from './notfound';  // Import the Error component
 import { motion } from 'framer-motion';
 
 // Utility functions
@@ -10,7 +10,7 @@ const ProxyApi = "https://proxy.jackparquez1.workers.dev/?u=";
 const searchapi = "/search/";
 
 const AvailableServers = [
-    'https://anime.jackparquez1.workers.dev',
+    'https://2.jackparquez1.workers.dev',
 ];
 
 function getApiServer() {
@@ -53,8 +53,11 @@ function sentenceCase(str) {
 
 async function SearchAnime(query, page = 1) {
     const data = await getJson(searchapi + query + "?page=" + page);
+    console.log(data);
     return data["results"];
+    
 }
+
 
 const SearchResults = () => {
     const { query } = useParams();
@@ -123,7 +126,7 @@ const SearchResults = () => {
                 <div>
                     <h2 className="text-lg font-custom tracking-widest font-semibold mb-4">Search Results for <span className='text-blue-300'>{query}</span></h2>
                     {error ? (  // Render Error component if there's an error
-                        <Error message={error} />
+                        <ErrorPage message={error} />
                     ) : (
                         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                             {results.map((anime, index) => (
