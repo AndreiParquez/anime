@@ -5,10 +5,11 @@ import img from '../assets/hxh.jpg';
 import { HiPlay } from "react-icons/hi2";
 import Navbar from './navbar';
 import Loader from './loader';
+import Errorpage from './notfound';
 
 const ProxyApi = "https://proxy.jackparquez1.workers.dev/?=";
 const animeapi = "/anime/";
-const AvailableServers = ['https://anime1.jackparquez1.workers.dev'];
+const AvailableServers = ['https://1.jackparquez1.workers.dev'];
 
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
@@ -104,11 +105,10 @@ function AnimePage() {
 
   if (error) {
     return (
-      <div className="error-page">
-        <h6>Oops! Something Went Wrong</h6>
-        <p>We're sorry, but something went wrong. Try refreshing the page or come back later.</p>
-        <p>If the issue persists, contact our <a href="https://github.com/TechShreyash/AnimeDexLite/issues/new">support team</a>.</p>
-        <p className="error-description">{error}</p>
+      <div className="h-screen flex flex-col  justify-center">
+        
+        <Errorpage message={error} />
+        
       </div>
     );
   }
