@@ -20,7 +20,7 @@ const IndexApi = "/home";
 const recentapi = "/recent/";
 const upcommingapi = "/upcoming/";
 
-const AvailableServers = ['https://a.jackparquez1.workers.dev','https://b.jackparquez1.workers.dev','https://c.jackparquez1.workers.dev','https://d.jackparquez1.workers.dev','https://e.jackparquez1.workers.dev'];
+const AvailableServers = ['https://a.jackparquez1.workers.dev','https://b.jackparquez1.workers.dev','https://c.jackparquez1.workers.dev','https://d.jackparquez1.workers.dev'];
 function getApiServer() {
     return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
 }

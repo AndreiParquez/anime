@@ -10,8 +10,7 @@ import Footer from './footer';
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const searchapi = "/search/";
 
-const AvailableServers = ['https://a.jackparquez1.workers.dev','https://b.jackparquez1.workers.dev','https://c.jackparquez1.workers.dev','https://d.jackparquez1.workers.dev','https://e.jackparquez1.workers.dev'];
-
+const AvailableServers = ['https://a.jackparquez1.workers.dev','https://b.jackparquez1.workers.dev','https://c.jackparquez1.workers.dev','https://d.jackparquez1.workers.dev'];
 
 function getApiServer() {
     return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
@@ -43,7 +42,6 @@ async function getJson(path, errCount = 0) {
     }
 }
 
-
 function sentenceCase(str) {
     if (str === null || str === "") return false;
     else str = str.toString();
@@ -57,9 +55,7 @@ async function SearchAnime(query, page = 1) {
     const data = await getJson(searchapi + query + "?page=" + page);
     console.log(data);
     return data["results"];
-    
 }
-
 
 const SearchResults = () => {
     const { query } = useParams();
@@ -78,9 +74,15 @@ const SearchResults = () => {
                 setResults(results);
                 setPage(2);
                 setHasNextPage(results.length > 0);
+                // If no results found, disable further pagination
+                if (results.length === 0) {
+                    setHasNextPage(false);
+                }
             } catch (error) {
                 console.error('Error fetching search results:', error);
-                setError('Failed to fetch search results. Please try again later.');  // Set error message
+                if (page === 1) {
+                    setError('Failed to fetch search results. Please try again later.');  // Set error message
+                }
             } finally {
                 setLoading(false);
             }
@@ -128,7 +130,7 @@ const SearchResults = () => {
             <section className="p-4 mt-16">
                 <div>
                     <h2 className="text-lg font-custom tracking-widest font-semibold mb-4">Search Results for <span className='text-blue-300'>{query}</span></h2>
-                    {error ? (  // Render Error component if there's an error
+                    {error && page === 1 ? (  // Render Error component if there's an error on page 1
                         <ErrorPage message={error} />
                     ) : (
                         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
