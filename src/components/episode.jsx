@@ -12,6 +12,7 @@ const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const episodeapi = "/episode/";
 const AvailableServers = ['https://2.jackparquez1.workers.dev','https://1.jackparquez1.workers.dev','https://3.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://5.jackparquez1.workers.dev'];
 
+
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
 }
@@ -81,7 +82,7 @@ const EpisodePage = () => {
 
   const formatId = (id) => {
     if (typeof id !== 'string') {
-      console.error(`Invalid id: ${id}`);
+      
       id = String(id);  // Ensure id is a string
     }
     return id.toLowerCase().replace(/\s+/g, '-');
@@ -95,10 +96,12 @@ const EpisodePage = () => {
     return episodeId.toLowerCase().replace(/\s+/g, '-');
   };
 
-  const handleEpisodeClick = (episodeId) => {
+  const handleEpisodeClick = (episodeNumber) => {
     const formattedId = formatId(id);
-    const formattedEpisodeId = formatEpisodeId(episodeId);
-    navigate(`/episode/${formattedId}/${formattedId}-episode-${formattedEpisodeId}`);
+    const formattedEpisodeId = formatEpisodeId(episodeNumber);
+    navigate(`/episode/${formattedId}/${formattedId}-episode-${formattedEpisodeId}`, {
+      state: { animeData, totalEpisodes }
+    });
   };
 
   if (loading) return <div><Loader /></div>;
@@ -171,6 +174,3 @@ const EpisodePage = () => {
 };
 
 export default EpisodePage;
-
-
-
