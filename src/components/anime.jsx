@@ -14,6 +14,7 @@ const recomendationapi = "/recommendations/";
 const AvailableServers = ['https://2.jackparquez1.workers.dev','https://1.jackparquez1.workers.dev','https://3.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://5.jackparquez1.workers.dev'];
 
 
+
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
 }
@@ -39,7 +40,7 @@ async function getJson(path, errCount = 0) {
       return await response.json();
   } catch (errors) {
       console.error(errors);
-      await new Promise(resolve => setTimeout(resolve, 1000));  // Add a delay before retrying
+      await new Promise(resolve => setTimeout(resolve, 2000));  // Add a delay before retrying
       return getJson(path, errCount + 1);
   }
 }
@@ -62,6 +63,7 @@ const AnimePage = () => {
 
         if (data && data.results) {
           const anime = data.results;
+          console.log('Anime data:', anime);
 
           setAnimeData({
             title: anime.name || anime.title?.userPreferred || "Unknown",
@@ -99,10 +101,14 @@ const AnimePage = () => {
     loadData();
   }, [id]);
 
-  const handleEpisodeClick = (episodeId) => {
-    navigate(`/episode/${id}/${episodeId}`, { state: { animeData } });
+ const handleEpisodeClick = (episodeId) => {
+    navigate(`/episode/${id}/${episodeId}`, { 
+      state: { 
+        animeData,
+        totalEpisodes: animeData.episodes.length // Pass the total number of episodes
+      }
+    });
   };
-
   const handleWatchNow = () => {
     if (animeData && animeData.episodes.length > 0) {
       handleEpisodeClick(animeData.episodes[0][1]);

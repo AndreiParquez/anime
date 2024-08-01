@@ -46,7 +46,7 @@ async function getJson(path, errCount = 0) {
         return await response.json();
     } catch (errors) {
         console.error(errors);
-        await new Promise(resolve => setTimeout(resolve, 1000));  // Add a delay before retrying
+        await new Promise(resolve => setTimeout(resolve, 2000));  // Add a delay before retrying
         return getJson(path, errCount + 1);
     }
 }

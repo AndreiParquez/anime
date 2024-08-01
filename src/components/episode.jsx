@@ -37,7 +37,7 @@ async function getJson(path, errCount = 0) {
       return await response.json();
   } catch (errors) {
       console.error(errors);
-      await new Promise(resolve => setTimeout(resolve, 1000));  // Add a delay before retrying
+      await new Promise(resolve => setTimeout(resolve, 2000));  // Add a delay before retrying
       return getJson(path, errCount + 1);
   }
 }
@@ -45,7 +45,8 @@ async function getJson(path, errCount = 0) {
 const EpisodePage = () => {
   const { id, episode_id } = useParams();
   const location = useLocation();
-  const { animeData } = location.state || {};
+  const { animeData, totalEpisodes } = location.state || {}; // Destructure the totalEpisodes
+
   const [episodeData, setEpisodeData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -78,8 +79,26 @@ const EpisodePage = () => {
     }
   }, [episode_id]);
 
+  const formatId = (id) => {
+    if (typeof id !== 'string') {
+      console.error(`Invalid id: ${id}`);
+      id = String(id);  // Ensure id is a string
+    }
+    return id.toLowerCase().replace(/\s+/g, '-');
+  };
+
+  const formatEpisodeId = (episodeId) => {
+    if (typeof episodeId !== 'string') {
+      console.error(`Invalid episodeId: ${episodeId}`);
+      episodeId = String(episodeId);  // Ensure episodeId is a string
+    }
+    return episodeId.toLowerCase().replace(/\s+/g, '-');
+  };
+
   const handleEpisodeClick = (episodeId) => {
-    navigate(`/episode/${id}/${id}-episode-${episodeId}`);
+    const formattedId = formatId(id);
+    const formattedEpisodeId = formatEpisodeId(episodeId);
+    navigate(`/episode/${formattedId}/${formattedId}-episode-${formattedEpisodeId}`);
   };
 
   if (loading) return <div><Loader /></div>;
@@ -88,72 +107,70 @@ const EpisodePage = () => {
     <>
       <Navbar />
       <div className="flex flex-col h-screen justify-between">
-      <div className='bg-zinc-900 pt-16 px-0 xl:px-56 sm:px-2 lg:px-40 md:px-32'>
-        {error ? (
-          <div className='flex flex-col justify-center py-36 items-center'>
-            <motion.img
-              src={img}
-              alt="Error"
-              className="h-28"
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
-            />
-            <IoIosWarning className='text-6xl mx-auto text-violet-400' />
-            <p className='text-white font-bold text-center'>
-              <span>An error occurred.</span>
-              <span className='text-violet-500'> Please try again later.</span>
-            </p>
-          </div>
-        ) : episodeData ? (
-          <>
-            {episodeData.stream && episodeData.stream.sources && episodeData.stream.sources.length > 0 ? (
-              <VideoPlayer source={episodeData.stream.sources[0].file} id={episode_id} />
-            ) : (
-              <p className='text-white'>No video source available</p>
-            )}
-            <div className="px-auto text-center">
-              <p className='text-violet-400 font-custom'>You are watching...</p>
-              <p className='text-base font-bold text-gray-300'>{episodeData.name}</p>
+        <div className='bg-zinc-900 pt-16 px-0 xl:px-56 sm:px-2 lg:px-40 md:px-32'>
+          {error ? (
+            <div className='flex flex-col justify-center py-36 items-center'>
+              <motion.img
+                src={img}
+                alt="Error"
+                className="h-28"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
+              />
+              <IoIosWarning className='text-6xl mx-auto text-violet-400' />
+              <p className='text-white font-bold text-center'>
+                <span>An error occurred.</span>
+                <span className='text-violet-500'> Please try again later.</span>
+              </p>
             </div>
-                  <p className='text-center text-xs text-zinc-600 font-semibold'>Refresh the page if video is not working properly.</p>
-          
-            {episodeData.episodes && !isNaN(parseInt(episodeData.episodes)) ? (
-              <section id="watch">
-                <div className="episode-container px-4 py-2">
-                  <h1 className="text-base font-bold text-gray-300">Episodes:</h1>
-                  <div className="font-bold mt-1 grid grid-cols-6 px-3 gap-2 py-2 rounded sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-12">
-                    {Array.from({ length: parseInt(episodeData.episodes) }).map((_, index) => {
-                      const episodeNumber = index + 1;
-                      const isActive = episodeNumber === parseInt(episode_id.split('-').pop());
-                      return (
-                        <button
-                          key={episodeNumber}
-                          className={`w-12 h-12 text-white rounded flex items-center justify-center ${isActive ? 'bg-violet-500' : 'bg-zinc-800'}`}
-                          onClick={() => handleEpisodeClick(episodeNumber)}
-                        >
-                          {episodeNumber}
-                        </button>
-                      );
-                    })}
+          ) : episodeData ? (
+            <>
+              {episodeData.stream && episodeData.stream.sources && episodeData.stream.sources.length > 0 ? (
+                <VideoPlayer source={episodeData.stream.sources[0].file} id={episode_id} />
+              ) : (
+                <p className='text-white'>No video source available</p>
+              )}
+              <div className="px-auto text-center">
+                <p className='text-violet-400 font-custom'>You are watching...</p>
+                <p className='text-base font-bold text-gray-300'>{episodeData.name}</p>
+              </div>
+              <p className='text-center text-xs text-zinc-600 font-semibold'>Refresh the page if video is not working properly.</p>
+              {totalEpisodes && !isNaN(parseInt(totalEpisodes)) ? (
+                <section id="watch">
+                  <div className="episode-container px-4 py-2">
+                    <h1 className="text-base font-bold text-gray-300">Episodes:</h1>
+                    <div className="font-bold mt-1 grid grid-cols-6 px-3 gap-2 py-2 rounded sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-12">
+                      {Array.from({ length: parseInt(totalEpisodes) }).map((_, index) => {
+                        const episodeNumber = index + 1;
+                        const isActive = episodeNumber === parseInt(episode_id.split('-').pop());
+                        return (
+                          <button
+                            key={episodeNumber}
+                            className={`w-12 h-12 text-white rounded flex items-center justify-center ${isActive ? 'bg-violet-500' : 'bg-zinc-800'}`}
+                            onClick={() => handleEpisodeClick(episodeNumber)}
+                          >
+                            {episodeNumber}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-               
-              </section>
-              
-            ) : (
-              <div className='text-white'>No episodes available</div>
-            )}
-          </>
-        ) : (
-          <div className='text-white'>No episode data available</div>
-        )}
+                </section>
+              ) : (
+                <div className='text-white'>No episodes available</div>
+              )}
+            </>
+          ) : (
+            <div className='text-white'>No episode data available</div>
+          )}
+        </div>
+        <Footer />
       </div>
-      <Footer />
-        
-      </div>
-      
     </>
   );
 };
 
 export default EpisodePage;
+
+
+
