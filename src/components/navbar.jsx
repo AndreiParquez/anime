@@ -50,7 +50,7 @@ const Navbar = ({ toggleLoginModal }) => {
                                 id="query"
                                 placeholder="Search"
                                 required
-                                className='bg-zinc-700 bg-opacity-60 pl-1 pr-4 py-2  placeholder:font-semibold placeholder:text-center placeholder:text-violet-400  rounded-3xl'
+                                className='bg-zinc-700 bg-opacity-60 pl-1 pr-4 py-2  placeholder:font-semibold placeholder:text-center placeholder:text-violet-400 text-center  rounded-3xl'
                             />
                             <button
                                 name="search"
