@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import VideoPlayer from './videoplayer';
 import Navbar from './navbar';
 import img from '../assets/hxh.png';
@@ -44,9 +44,10 @@ async function getJson(path, errCount = 0) {
   }
 }
 
-
 const EpisodePage = () => {
-  const { episode_id } = useParams();
+  const { id, episode_id } = useParams();
+  const location = useLocation();
+  const { animeData } = location.state || {};
   const [episodeData, setEpisodeData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -80,7 +81,7 @@ const EpisodePage = () => {
   }, [episode_id]);
 
   const handleEpisodeClick = (episodeId) => {
-    navigate(`/episode/${id}/${episodeId}`);
+    navigate(`/episode/${id}/${id}-episode-${episodeId}`);
   };
 
   if (loading) return <div><Loader /></div>;
@@ -120,7 +121,7 @@ const EpisodePage = () => {
                 <div className="episode-container px-4 py-2">
                   <h1 className="text-base font-bold text-gray-300">Episodes:</h1>
                   <div className="font-bold mt-1 grid grid-cols-6 px-3 gap-2 py-2 rounded bg-violet-600 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8">
-                    {Array.from({ length: parseInt(episodeData.episodes) }, (_, index) => (
+                    {Array.from({ length: parseInt(episodeData.episodes) }).map((_, index) => (
                       <button
                         key={index}
                         className="bg-zinc-800 w-12 h-12 text-white rounded flex items-center justify-center"

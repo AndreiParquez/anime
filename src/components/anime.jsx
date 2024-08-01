@@ -100,7 +100,7 @@ const AnimePage = () => {
   }, [id]);
 
   const handleEpisodeClick = (episodeId) => {
-    navigate(`/episode/${id}/${episodeId}`);
+    navigate(`/episode/${id}/${episodeId}`, { state: { animeData } });
   };
 
   const handleWatchNow = () => {
