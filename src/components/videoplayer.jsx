@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 
 const VideoPlayer = ({ source, id }) => {
   return (
-    <div className="video-container relative max-w-full bg-black">
+    <div className="video-container relative max-w-full md:h-96 bg-black">
       <ReactPlayer
         url={source}
         className="react-player"

@@ -9,9 +9,7 @@ import { motion } from 'framer-motion';
 import Footer from './footer';
 
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
-
 const episodeapi = "/episode/";
-
 const AvailableServers = ['https://2.jackparquez1.workers.dev','https://1.jackparquez1.workers.dev','https://3.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://5.jackparquez1.workers.dev'];
 
 function getApiServer() {
@@ -89,7 +87,8 @@ const EpisodePage = () => {
   return (
     <>
       <Navbar />
-      <div className='bg-zinc-900 pt-16'>
+      <div className="flex flex-col h-screen justify-between">
+      <div className='bg-zinc-900 pt-16 px-0 xl:px-56 sm:px-2 lg:px-40 md:px-32'>
         {error ? (
           <div className='flex flex-col justify-center py-36 items-center'>
             <motion.img
@@ -113,26 +112,34 @@ const EpisodePage = () => {
               <p className='text-white'>No video source available</p>
             )}
             <div className="px-auto text-center">
-              <p className='text-violet-400'>You are watching...</p>
+              <p className='text-violet-400 font-custom'>You are watching...</p>
               <p className='text-base font-bold text-gray-300'>{episodeData.name}</p>
             </div>
+                  <p className='text-center text-xs text-zinc-600 font-semibold'>Refresh the page if video is not working properly.</p>
+          
             {episodeData.episodes && !isNaN(parseInt(episodeData.episodes)) ? (
               <section id="watch">
                 <div className="episode-container px-4 py-2">
                   <h1 className="text-base font-bold text-gray-300">Episodes:</h1>
-                  <div className="font-bold mt-1 grid grid-cols-6 px-3 gap-2 py-2 rounded bg-violet-600 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8">
-                    {Array.from({ length: parseInt(episodeData.episodes) }).map((_, index) => (
-                      <button
-                        key={index}
-                        className="bg-zinc-800 w-12 h-12 text-white rounded flex items-center justify-center"
-                        onClick={() => handleEpisodeClick(index + 1)}
-                      >
-                        {index + 1}
-                      </button>
-                    ))}
+                  <div className="font-bold mt-1 grid grid-cols-6 px-3 gap-2 py-2 rounded sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-12">
+                    {Array.from({ length: parseInt(episodeData.episodes) }).map((_, index) => {
+                      const episodeNumber = index + 1;
+                      const isActive = episodeNumber === parseInt(episode_id.split('-').pop());
+                      return (
+                        <button
+                          key={episodeNumber}
+                          className={`w-12 h-12 text-white rounded flex items-center justify-center ${isActive ? 'bg-violet-500' : 'bg-zinc-800'}`}
+                          onClick={() => handleEpisodeClick(episodeNumber)}
+                        >
+                          {episodeNumber}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
+               
               </section>
+              
             ) : (
               <div className='text-white'>No episodes available</div>
             )}
@@ -142,6 +149,9 @@ const EpisodePage = () => {
         )}
       </div>
       <Footer />
+        
+      </div>
+      
     </>
   );
 };
