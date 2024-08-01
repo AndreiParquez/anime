@@ -36,7 +36,7 @@ const Footer = () => {
                         <div className="flex">
                             <p className="text-zinc-500 text-center font-bold text-xs">
                                 Developed by 
-                                <span className='tracking-widest font-custom font-bold text-sm drop-shadow ml-4 text-violet-300'>
+                                <span className='tracking-widest font-custom font-bold text-sm drop-shadow ml-2 text-violet-300'>
                                     {splitText('Andrei')}
                                 </span>
                                 <span className='tracking-widest font-custom font-bold drop-shadow ml-1 text-sm text-violet-300'>
