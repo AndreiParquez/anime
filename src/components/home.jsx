@@ -20,7 +20,7 @@ const IndexApi = "/home";
 const recentapi = "/recent/";
 const upcommingapi = "/upcoming/";
 
-const AvailableServers = ['https://2.jackparquez1.workers.dev','https://1.jackparquez1.workers.dev','https://3.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://5.jackparquez1.workers.dev'];
+const AvailableServers = ['https://a.jackparquez1.workers.dev','https://b.jackparquez1.workers.dev','https://c.jackparquez1.workers.dev','https://d.jackparquez1.workers.dev','https://e.jackparquez1.workers.dev'];
 function getApiServer() {
     return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
 }
@@ -145,7 +145,7 @@ function Home() {
                 <div className="relative flex items-center w-full justify-center">
                     <div>
                         <motion.h1
-                            className="text-4xl font-custom text-white z-10"
+                            className="text-4xl font-custom text-white z-10 icons"
                             initial="hidden"
                             animate="visible"
                             variants={textVariants}
@@ -165,7 +165,7 @@ function Home() {
                     <motion.img
                         src={img}
                         alt="logo"
-                        className="h-32 z-10"
+                        className="h-32 z-10 icon"
                         variants={imageVariants}
                         animate="waving"
                     />

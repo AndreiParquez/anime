@@ -48,4 +48,11 @@ body{
   .swiper-pagination-bullet {
     width: 12px;
     height: 12px;
+    
   }
+.icon{
+  filter: drop-shadow(4px 3px 1px #955cff);
+}
+.icons{
+  filter: drop-shadow(3px 2px 0px #955cff);
+}

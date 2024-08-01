@@ -11,7 +11,7 @@ import Footer from './footer';
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const animeapi = "/anime/";
 const recomendationapi = "/recommendations/";
-const AvailableServers = ['https://2.jackparquez1.workers.dev','https://1.jackparquez1.workers.dev','https://3.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://4.jackparquez1.workers.dev','https://5.jackparquez1.workers.dev'];
+const AvailableServers = ['https://a.jackparquez1.workers.dev','https://b.jackparquez1.workers.dev','https://c.jackparquez1.workers.dev','https://d.jackparquez1.workers.dev','https://e.jackparquez1.workers.dev'];
 
 
 
