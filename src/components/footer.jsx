@@ -47,16 +47,16 @@ const Footer = () => {
                                 </span>
                             </p>
                         </div>
-                        <p className='text-zinc-500 text-center font-bold text-xs'>Contact Me</p>
+                        <p className='text-zinc-500 text-center font-bold text-[11px]'>Contact Me</p>
                         <div className="flex justify-center">
                             <a href="https://www.facebook.com/andrei.parquez.5" target="_blank" rel="noopener noreferrer">
-                                <FaFacebookSquare className='size-6 text-blue-500 mx-2' />
+                                <FaFacebookSquare className='size-5 text-blue-500 mx-2' />
                             </a>
                             <a href="https://github.com/AndreiParquez" target="_blank" rel="noopener noreferrer">
-                                <TbBrandGithubFilled className='size-6 text-zinc-600 mx-2' />
+                                <TbBrandGithubFilled className='size-5 text-zinc-600 mx-2' />
                             </a>
                             <a href="https://www.twitter.com/yourprofile" target="_blank" rel="noopener noreferrer">
-                                <FaSquareXTwitter className='size-6 text-white mx-2' />
+                                <FaSquareXTwitter className='size-5 text-white mx-2' />
                             </a>
                         </div>
                     </div>

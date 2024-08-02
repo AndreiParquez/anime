@@ -10,7 +10,7 @@ import Footer from './footer';
 
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const episodeapi = "/episode/";
-const AvailableServers = ['https://api.jackparquez1.workers.dev'];
+const AvailableServers = ['https://api4.jackparquez1.workers.dev'];
 
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
@@ -45,7 +45,7 @@ async function getJson(path, errCount = 0) {
 const EpisodePage = () => {
   const { id, episode_id } = useParams();
   const location = useLocation();
-  const { animeData, totalEpisodes } = location.state || {}; // Destructure the totalEpisodes
+  const { animeData, totalEpisodes,idfromprev } = location.state || {}; // Destructure the totalEpisodes
 
   const [episodeData, setEpisodeData] = useState(null);
   const [error, setError] = useState(null);
@@ -80,27 +80,12 @@ const EpisodePage = () => {
     }
   }, [episode_id]);
 
-  const formatId = (id) => {
-    if (typeof id !== 'string') {
-      
-      id = String(id);  // Ensure id is a string
-    }
-    return id.toLowerCase().replace(/\s+/g, '-');
-  };
-
-  const formatEpisodeId = (episodeId) => {
-    if (typeof episodeId !== 'string') {
-      console.error(`Invalid episodeId: ${episodeId}`);
-      episodeId = String(episodeId);  // Ensure episodeId is a string
-    }
-    return episodeId.toLowerCase().replace(/\s+/g, '-');
-  };
+ 
 
   const handleEpisodeClick = (episodeNumber) => {
-    const formattedId = formatId(id);
-    const formattedEpisodeId = formatEpisodeId(episodeNumber);
-    navigate(`/episode/${formattedId}/${formattedId}-episode-${formattedEpisodeId}`, {
-      state: { animeData, totalEpisodes }
+    
+    navigate(`/episode/${idfromprev}/${idfromprev}-episode-${episodeNumber}`, {
+      state: { animeData, totalEpisodes,idfromprev }
     });
   };
 

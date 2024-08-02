@@ -20,7 +20,7 @@ const IndexApi = "/home";
 const recentapi = "/recent/";
 const upcommingapi = "/upcoming/";
 
-const AvailableServers = ['https://bago.jackparquez1.workers.dev'];
+const AvailableServers = ['https://api3.jackparquez1.workers.dev'];
 function getApiServer() {
     return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
 }
@@ -135,11 +135,17 @@ function Home() {
 
     const formatTitle = (title) => {
         return title
-          .replace(/\[.*?\]/g, '') // Remove text within brackets
+          .replace(/\[.*?\]/g, '') // Remove text within square brackets
+          .replace(/\{.*?\}/g, '') // Remove text within curly braces
+          .replace(/["']/g, '') // Remove single and double quotation marks
+          .replace(/[:]/g, '') // Remove colons
+          .replace(/[^\w\s-]/g, '') // Remove all symbols except hyphens and whitespace
           .trim() // Trim whitespace
           .replace(/\s+/g, '-') // Replace spaces with hyphens
           .toLowerCase(); // Convert to lowercase
       };
+      //console.log(title);
+      
     
 
     return (

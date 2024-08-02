@@ -21,6 +21,13 @@ const Loader = () => {
       >
         Loading...
       </motion.div>
+      <div
+        className="text-xs font-bold w-2/3 text-center text-zinc-400 "
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+      >
+        This site is still under development if bugs occur please report to the developer
+      </div>
     </div>
   );
 };

@@ -11,7 +11,7 @@ import Footer from './footer';
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const animeapi = "/anime/";
 const recomendationapi = "/recommendations/";
-const AvailableServers = ['https://api.jackparquez1.workers.dev'];
+const AvailableServers = ['https://anime.jackparquez1.workers.dev'];
 
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
@@ -43,8 +43,18 @@ async function getJson(path, errCount = 0) {
   }
 }
 
+
+
 const formatTitle = (title) => {
-  return title.replace(/\s+/g, '-').toLowerCase();
+  return title
+    .replace(/\[.*?\]/g, '') // Remove text within square brackets
+    .replace(/\{.*?\}/g, '') // Remove text within curly braces
+    .replace(/["']/g, '') // Remove single and double quotation marks
+    .replace(/[:]/g, '') // Remove colons
+    .replace(/[^\w\s-]/g, '') // Remove all symbols except hyphens and whitespace
+    .trim() // Trim whitespace
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .toLowerCase(); // Convert to lowercase
 };
 
 const AnimePage = () => {
@@ -109,7 +119,8 @@ const AnimePage = () => {
   const handleEpisodeClick = (episodeId) => {
     navigate(`/episode/${id}/${episodeId}`, { 
       state: { 
-        animeData,totalEpisodes: animeData.episodes.length,id
+        animeData,totalEpisodes: animeData.episodes.length,
+        idfromprev: id
 
          // Pass the total number of episodes
       }
