@@ -56,6 +56,7 @@ const AnimePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     async function loadData() {
       console.log(`Loading data for anime ID: ${id}`);
       try {

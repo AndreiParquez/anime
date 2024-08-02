@@ -54,6 +54,7 @@ const EpisodePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const loadEpisodeData = async () => {
       try {
         const episodeResponse = await getJson(episodeapi + episode_id);

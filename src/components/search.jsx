@@ -42,15 +42,6 @@ async function getJson(path, errCount = 0) {
     }
 }
 
-function sentenceCase(str) {
-    if (str === null || str === "") return false;
-    else str = str.toString();
-
-    return str.replace(/\w\S*/g, function (txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-}
-
 async function SearchAnime(query, page = 1) {
     const data = await getJson(searchapi + query + "?page=" + page);
     console.log(data);
@@ -60,7 +51,8 @@ async function SearchAnime(query, page = 1) {
 const SearchResults = () => {
     const { query } = useParams();
     const [results, setResults] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);  // Track overall loading state
+    const [loadingMore, setLoadingMore] = useState(false);  // Track loading for more results
     const [page, setPage] = useState(1);
     const [hasNextPage, setHasNextPage] = useState(true);
     const [error, setError] = useState(null);  // New state for error handling
@@ -71,12 +63,13 @@ const SearchResults = () => {
             setError(null);  // Reset error state before fetching
             try {
                 const results = await SearchAnime(query, 1);
-                setResults(results);
-                setPage(2);
-                setHasNextPage(results.length > 0);
-                // If no results found, disable further pagination
-                if (results.length === 0) {
-                    setHasNextPage(false);
+                if (results.length > 0) {
+                    setResults(results);
+                    setPage(2);
+                    setHasNextPage(true);  // Assuming there's a next page if results are found
+                } else {
+                    setResults([]);
+                    setHasNextPage(false);  // No results means no more pages
                 }
             } catch (error) {
                 console.error('Error fetching search results:', error);
@@ -97,16 +90,23 @@ const SearchResults = () => {
                 window.scrollY + window.innerHeight >=
                 document.documentElement.scrollHeight
             ) {
-                if (hasNextPage) {
+                if (hasNextPage && !loadingMore) {
                     const fetchMoreResults = async () => {
+                        setLoadingMore(true);  // Show loader when fetching more results
                         try {
                             const newResults = await SearchAnime(query, page);
-                            setResults(prevResults => [...prevResults, ...newResults]);
-                            setHasNextPage(newResults.length > 0);
-                            setPage(prevPage => prevPage + 1);
+                            if (newResults.length > 0) {
+                                setResults(prevResults => [...prevResults, ...newResults]);
+                                setPage(prevPage => prevPage + 1);
+                            } else {
+                                setHasNextPage(false);  // No more pages
+                            }
                         } catch (error) {
                             console.error('Error fetching more results:', error);
+                            setHasNextPage(false);  // Stop further fetching
                             setError('Failed to fetch more results. Please try again later.');  // Set error message
+                        } finally {
+                            setLoadingMore(false);  // Hide loader when done
                         }
                     };
 
@@ -117,10 +117,10 @@ const SearchResults = () => {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [hasNextPage, page, query]);
+    }, [hasNextPage, page, query, loadingMore]);  // Added loadingMore to dependencies
 
-    if (loading && page === 1) {
-        return <Loader />;
+    if (loading) {
+        return <Loader />;  // Show loader during initial search
     }
 
     return (
@@ -163,7 +163,7 @@ const SearchResults = () => {
                     )}
                 </div>
             </section>
-            {loading && page > 1 && <Loader />}
+            {loadingMore && page > 1 && <Loader />}  {/* Show loader when fetching more results */}
         </div>
         <Footer />
         </>
