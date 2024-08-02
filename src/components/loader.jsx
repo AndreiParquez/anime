@@ -10,7 +10,7 @@ const Loader = () => {
       <motion.img
         src={img} 
         alt="Loading"
-        className="mb-6 h-24"
+        className="mb-4 h-20"
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
       />

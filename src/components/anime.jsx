@@ -13,8 +13,6 @@ const animeapi = "/anime/";
 const recomendationapi = "/recommendations/";
 const AvailableServers = ['https://a.jackparquez1.workers.dev','https://b.jackparquez1.workers.dev','https://c.jackparquez1.workers.dev','https://d.jackparquez1.workers.dev'];
 
-
-
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
 }
@@ -45,6 +43,9 @@ async function getJson(path, errCount = 0) {
   }
 }
 
+const formatTitle = (title) => {
+  return title.replace(/\s+/g, '-').toLowerCase();
+};
 
 const AnimePage = () => {
   const { id } = useParams();
@@ -56,6 +57,7 @@ const AnimePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setLoading(true);  // Set loading to true on every id change
     window.scrollTo(0, 0);
     async function loadData() {
       console.log(`Loading data for anime ID: ${id}`);
@@ -102,7 +104,7 @@ const AnimePage = () => {
     loadData();
   }, [id]);
 
- const handleEpisodeClick = (episodeId) => {
+  const handleEpisodeClick = (episodeId) => {
     navigate(`/episode/${id}/${episodeId}`, { 
       state: { 
         animeData,
@@ -110,6 +112,7 @@ const AnimePage = () => {
       }
     });
   };
+
   const handleWatchNow = () => {
     if (animeData && animeData.episodes.length > 0) {
       handleEpisodeClick(animeData.episodes[0][1]);
@@ -143,6 +146,7 @@ const AnimePage = () => {
         <section>
           <motion.div
             className="anime-container"
+            key={id}  // Add key here
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -158,7 +162,7 @@ const AnimePage = () => {
                   <div className="flex items-center space-x-3">
                     <h1 className="text-white text-xl font-bold">{animeData.title}</h1>
                     <span className="text-[9px] font-semibold border px-1 rounded">HD</span>
-                    <span className="text-xs tracking-widest font-bold text-gray-300">{animeData.lang}</span>
+                    <span className="text-xs tracking-widest font-bold text-nowrap text-gray-300">{animeData.lang}</span>
                   </div>
                   <div className="flex text-gray-300 space-x-2">
                     <span className="year">{animeData.type}</span>
@@ -236,11 +240,11 @@ const AnimePage = () => {
                 <p className="text-white">{recommendationError}</p>
               ) : recommendations.length > 0 ? (
                 recommendations.map((recAnime, index) => {
-                  // Extract the preferred title
-                  const title = recAnime.title?.userPreferred || 'Unknown Title';
+                  // Extract the preferred title and format it
+                  const title = formatTitle(recAnime.title?.userPreferred || 'Unknown Title');
 
                   return (
-                    <Link to={`/anime/${recAnime.title.userPreferred}`} key={recAnime.id} className="block">
+                    <Link to={`/anime/${title}`} key={recAnime.id} className="block">
                       <motion.div
                         className="poster bg-zinc-900 overflow-hidden"
                         initial={{ opacity: 0, y: 20 }}
@@ -251,18 +255,18 @@ const AnimePage = () => {
                           <img
                             className="lzy_img w-full h-64 object-cover"
                             src={recAnime.coverImage?.large || img}
-                            alt={title}
+                            alt={recAnime.title?.userPreferred || 'Unknown Title'}
                           />
                         </div>
                         <div className="la-details p-2 text-white">
                           <div className="items-center">
-                            <p className="text-xs font-semibold">{title}</p>
+                            <p className="text-xs font-semibold">{recAnime.title?.userPreferred || 'Unknown Title'}</p>
                             <div className="flex justify-between items-center text-gray-400">
                               <div className="text-xs font-custom">
                                 EP {recAnime.episodes || 'N/A'}
                               </div>
                               <div className="p-1 font-custom rounded-lg text-xs font-bold text-red-500 tracking-wider">
-                                {title.toLowerCase().includes("dub") ? "DUB" : "SUB"}
+                                {recAnime.title?.userPreferred.toLowerCase().includes("dub") ? "DUB" : "SUB"}
                               </div>
                             </div>
                           </div>

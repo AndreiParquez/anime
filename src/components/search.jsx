@@ -147,9 +147,9 @@ const SearchResults = () => {
                                         </div>
                                         <div className="la-details p-2 text-white">
                                             <div className="items-center">
-                                                <p className="text-xs font-semibold">{anime.title}</p>
+                                                <p className="text-xs font-bold">{anime.title}</p>
                                                 <div className="flex justify-between items-center text-gray-400">
-                                                    <div className="text-xs font-custom">EP {anime.episode?.split(" ")[1]}</div>
+                                                    <div className="text-xs font-custom tracking-widest">{anime.releaseDate}</div>
                                                     <div className="p-1 font-custom rounded-lg text-xs font-bold text-red-500 tracking-wider">
                                                         {anime.title.toLowerCase().includes("dub") ? "DUB" : "SUB"}
                                                     </div>

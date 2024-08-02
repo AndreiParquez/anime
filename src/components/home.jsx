@@ -133,9 +133,13 @@ function Home() {
         },
     };
 
-    function removeBrackets(title) {
-        return title.replace(/\[.*?\]/g, '').trim();
-    }
+    const formatTitle = (title) => {
+        return title
+          .replace(/\[.*?\]/g, '') // Remove text within brackets
+          .trim() // Trim whitespace
+          .replace(/\s+/g, '-') // Replace spaces with hyphens
+          .toLowerCase(); // Convert to lowercase
+      };
     
 
     return (
@@ -190,9 +194,9 @@ function Home() {
         >
             {aniList.map((anime, index) => (
                 <SwiperSlide key={index}>
-                     <Link to={`/anime/${removeBrackets(anime.title.userPreferred)}`} className="block">
+                     <Link to={`/anime/${formatTitle(anime.title.userPreferred)}`} className="block">
                         <motion.div
-                            className="relative bg-zinc-900 mb-9   rounded overflow-hidden"
+                            className="relative bg-zinc-900 mb-9  overflow-hidden"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 2, delay: index * 0.1 }}
@@ -267,7 +271,7 @@ function Home() {
                     >
                         {popularAnimes.map((anime, index) => (
                             <SwiperSlide key={index}>
-                                <Link to={`/anime/${removeBrackets(anime.id)}`} className="block">
+                                <Link to={`/anime/${formatTitle(anime.id)}`} className="block">
                                     <motion.div
                                         className="poster bg-zinc-900 mb-4 overflow-hidden"
                                         initial={{ opacity: 0, y: 20 }}
@@ -319,7 +323,7 @@ function Home() {
                     >
                         {upcommingAnimes.map((anime, index) => (
                             <SwiperSlide key={index}>
-                                <Link to={`/anime/${removeBrackets(anime.media.title.userPreferred)}`} className="block">
+                                <Link to={`/anime/${formatTitle(anime.media.title.userPreferred)}`} className="block">
                                     <motion.div
                                         className="poster bg-zinc-900  mb-4 overflow-hidden"
                                         initial={{ opacity: 0, y: 20 }}
@@ -353,7 +357,7 @@ function Home() {
                     <h2 id="latest" className="text-lg font-custom tracking-widest font-semibold mb-4">Recent <span className='text-blue-300'>Releases</span></h2>
                     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                         {recentAnimes.map((anime, index) => (
-                            <Link to={`/anime/${removeBrackets(anime.title)}`} key={index} className="block">
+                            <Link to={`/anime/${formatTitle(anime.title)}`} key={index} className="block">
                                 <motion.div
                                     className="poster bg-zinc-900 overflow-hidden"
                                     initial={{ opacity: 0, y: 20 }}
@@ -385,7 +389,7 @@ function Home() {
             
 
             {isLoading && (
-                <div id="load" className="p-4 text-center">
+                <div id="load" className="">
                     <Loader />
                 </div>
             )}
