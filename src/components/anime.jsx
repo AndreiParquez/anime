@@ -120,7 +120,8 @@ const AnimePage = () => {
     navigate(`/episode/${id}/${episodeId}`, { 
       state: { 
         animeData,totalEpisodes: animeData.episodes.length,
-        idfromprev: id
+        idfromprev: id,
+        namefromprev: animeData.title,
 
          // Pass the total number of episodes
       }

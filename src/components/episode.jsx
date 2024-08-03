@@ -45,7 +45,7 @@ async function getJson(path, errCount = 0) {
 const EpisodePage = () => {
   const { id, episode_id } = useParams();
   const location = useLocation();
-  const { animeData, totalEpisodes,idfromprev } = location.state || {}; // Destructure the totalEpisodes
+  const { animeData, totalEpisodes,idfromprev,namefromprev } = location.state || {}; // Destructure the totalEpisodes
 
   const [episodeData, setEpisodeData] = useState(null);
   const [error, setError] = useState(null);
@@ -87,6 +87,7 @@ const EpisodePage = () => {
     navigate(`/episode/${idfromprev}/${idfromprev}-episode-${episodeNumber}`, {
       state: { animeData, totalEpisodes,idfromprev }
     });
+    console.log('id from prev:' + idfromprev);
   };
 
   if (loading) return <div><Loader /></div>;

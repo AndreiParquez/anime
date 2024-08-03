@@ -73,7 +73,7 @@ function Home() {
                 setRecentAnimes(recentData);
                 const upcommingData = (await getJson(upcommingapi + 1))["results"];
                 setUpcommingAnimes(upcommingData);
-                console.log("Fetched data:", data);
+                console.log("Fetched upcommingdata:", upcommingData);                console.log("Fetched data:", data);
             } catch (error) {
                 console.error(`Failed to fetch data: ${error}`);
             }
@@ -134,9 +134,18 @@ function Home() {
     };
 
     const formatTitle = (title) => {
+        console.log(title);
+
+        if (typeof title !== 'string') {
+
+            return '';
+
+        }
         return title
-          .replace(/\[.*?\]/g, '') // Remove text within square brackets
-          .replace(/\{.*?\}/g, '') // Remove text within curly braces
+          //.replace(/\[.*?\]/g, '') // Remove text within square brackets
+          //.replace(/\{.*?\}/g, '') // Remove text within curly braces
+          .replace(/\[(.*?)\]/g, '-$1-') // Replace square brackets with dashes
+          .replace(/\{(.*?)\}/g, '-$1-') // Replace curly braces with dashes
           .replace(/["']/g, '') // Remove single and double quotation marks
           .replace(/[:]/g, '') // Remove colons
           .replace(/[^\w\s-]/g, '') // Remove all symbols except hyphens and whitespace
@@ -329,7 +338,7 @@ function Home() {
                     >
                         {upcommingAnimes.map((anime, index) => (
                             <SwiperSlide key={index}>
-                                <Link to={`/anime/${formatTitle(anime.media.title.userPreferred)}`} className="block">
+                                <Link to={`/anime/${anime.media.title.userPreferred}`} className="block">
                                     <motion.div
                                         className="poster bg-zinc-900  mb-4 overflow-hidden"
                                         initial={{ opacity: 0, y: 20 }}
