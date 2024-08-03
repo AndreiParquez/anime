@@ -117,7 +117,12 @@ const EpisodePage = () => {
               {episodeData.stream && episodeData.stream.sources && episodeData.stream.sources.length > 0 ? (
                 <VideoPlayer source={episodeData.stream.sources[0].file} id={episode_id} />
               ) : (
-                <p className='text-white'>No video source available</p>
+                <div className='h-64 flex  items-center' >
+                  <p className='text-white text-sm mx-8'>No video source available, please try to click episode in the main anime page.
+                  </p>
+
+                </div>
+                
               )}
               <div className="px-auto text-center">
                 <p className='text-violet-400 font-custom'>You are watching...</p>
