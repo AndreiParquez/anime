@@ -14,6 +14,7 @@ import { Pagination } from 'swiper/modules';
 import { FaHashtag } from 'react-icons/fa';
 //import { set } from 'video.js/dist/types/tech/middleware';
 import Footer from './footer';
+import { IoMdArrowDropdownCircle } from "react-icons/io";
 
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const IndexApi = "/home";
@@ -154,6 +155,14 @@ function Home() {
           .toLowerCase(); // Convert to lowercase
       };
       //console.log(title);
+
+    const [showAll, setShowAll] = useState(false);
+
+    const handleToggleShowAll = () => {
+        setShowAll(!showAll);
+    };
+
+    const displayedAnimes = showAll ? upcommingAnimes : upcommingAnimes.slice(0, 5);
       
     
 
@@ -315,56 +324,88 @@ function Home() {
                 </div>
             </section>
 
+
             <section className="p-4">
-                <div>
-                    <h2 id="latest" className="text-lg font-custom tracking-widest font-semibold mb-4">Upcoming <span className='text-green-300'>Releases</span></h2>
-                    <Swiper
-                        modules={[Pagination]}
-                        spaceBetween={20}
-                        slidesPerView={2}
-                        pagination={{ clickable: true, dynamicBullets: true }}
-                        breakpoints={{
-                            1024: {
-                                slidesPerView: 4,
-                            },
-                            600: {
-                                slidesPerView: 1,
-                            },
-                            480: {
-                                slidesPerView: 1,
-                            },
-                        }}
-                        className="mySwiper"
-                    >
-                        {upcommingAnimes.map((anime, index) => (
-                            <SwiperSlide key={index}>
-                                <Link to={`/anime/${anime.media.title.userPreferred}`} className="block">
-                                    <motion.div
-                                        className="poster bg-zinc-900  mb-4 overflow-hidden"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 2, delay: index * 0.1 }}
-                                        
-                                    >
-                                        <div id="shadow2" className="shadow">
-                                            <img className="lzy_img w-full object-cover  h-64 " src={anime.media.coverImage.large} alt={anime.media.title.userPreferred} />
-                                        </div>
-                                        <div className="la-details p-2 text-white">
-                                            <div className="items-center">
-                                                <p className="text-xs  font-bold truncate-2-lines" style={{ color: anime.media.coverImage.color }}>{anime.media.title.userPreferred}</p>
-                                                <div className="flex justify-between items-center text-gray-400">
-                                                    <div className="text-xs font-custom">EP {anime.episode}</div>
-                                                    <div className="text-xs font-custom text-violet-300">Date {new Date(anime.airingAt * 1000).toLocaleDateString()}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </motion.div>
+            <div>
+                <h2 id="latest" className="text-lg font-custom tracking-widest font-semibold mb-4">
+                    Upcoming <span className='text-green-300'>Releases</span>
+                </h2>
+                <div className="space-y-2">
+                    {displayedAnimes.map((anime, index) => (
+                        <div key={index} className="flex items-center bg-zinc-900 p-2 rounded-lg">
+                            <div className="w-12 h-16 overflow-hidden ">
+                                <Link to={`/anime/${anime.media.title.userPreferred}`}>
+                                    <img className="w-full min-w-12 h-full object-cover rounded-sm" src={anime.media.coverImage.large} alt={anime.media.title.userPreferred} />
                                 </Link>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                            </div>
+                            <div className="ml-4 flex-grow">
+                                <p className="text-sm font-bold truncate text-white">
+                                    {anime.media.title.userPreferred}
+                                </p>
+                                <div className="flex items-center mt-2 text-gray-400">
+                                    <div className="flex items-center mr-4">
+                                        <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v5h-2zm0 6h2v2h-2z" />
+                                        </svg>
+                                        <span>{anime.views}</span>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                        </svg>
+                                        <span>{anime.likes}</span>
+                                    </div>
+                                </div>
+                                <div className="flex items-center text-gray-400 mt-2">
+                                    <div className="text-xs font-custom">EP {anime.episode}</div>
+                                    <div className="text-xs font-custom text-violet-300 ml-4">
+                                        {new Date(anime.airingAt * 1000).toLocaleDateString('en-US', {
+                                            weekday: 'long',
+                                            month: 'long',
+                                            day: 'numeric',
+                                            year: 'numeric',
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            </section>
+                <div className="mt-4 text-center">
+                    <button 
+                        className="px-4 py-2 bg-violet-500 flex tracking-widest items-center mx-auto font-custom  text-white text-xs rounded" 
+                        onClick={handleToggleShowAll}
+                    >
+                        <IoMdArrowDropdownCircle className="size-5 mr-2" />
+                        {showAll ? 'Show Less' : 'Show All'}
+                    </button>
+                </div>
+            </div>
+        </section>
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             {/* Recent Releases Grid */}
             <section className="p-4">
