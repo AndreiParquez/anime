@@ -151,7 +151,7 @@ const EpisodePage = () => {
                 <button
                   onClick={handlePrevEpisode}
                   disabled={currentEpisodeNumber <= 1}
-                  className={`bg-violet-400 px-3 font-custom tracking-widest text-sm  text-white rounded flex items-center justify-center ${currentEpisodeNumber <= 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`bg-violet-400 px-3 py-3 font-custom tracking-widest text-sm  text-white rounded flex items-center justify-center ${currentEpisodeNumber <= 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   <IoArrowUndo className='mr-1'/>
                   Prev episode
@@ -159,7 +159,7 @@ const EpisodePage = () => {
                 <button
                   onClick={handleNextEpisode}
                   disabled={currentEpisodeNumber >= totalEpisodes}
-                  className={`bg-violet-400 text-sm px-4 py-2 font-custom tracking-widest text-white rounded flex items-center justify-center ${currentEpisodeNumber >= totalEpisodes ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`bg-violet-400 text-sm px-3 py-3 font-custom tracking-widest text-white rounded flex items-center justify-center ${currentEpisodeNumber >= totalEpisodes ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                  
                   Next episode
