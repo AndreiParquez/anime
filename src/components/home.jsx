@@ -207,67 +207,67 @@ function Home() {
 
              {/* Most Popular Carousel */}
              <section className="p-4">
-            <div>
-        <h2 id="latest" className="text-lg font-semibold mb-4 font-custom tracking-widest">Most <span className='text-violet-300'>Popular</span></h2>
-        <Swiper
-            modules={[Pagination]}
-            spaceBetween={20}
-            slidesPerView={1}
-            pagination={{ clickable: true, dynamicBullets: true }}
-            className="mySwiper"
-        >
-            {aniList.map((anime, index) => (
-                <SwiperSlide key={index}>
-                     <Link to={`/anime/${formatTitle(anime.title.userPreferred)}`} className="block">
-                        <motion.div
-                            className="relative bg-zinc-900 mb-9  overflow-hidden"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 2, delay: index * 0.1 }}
-                            style={{ backgroundImage: `url(${anime.bannerImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-                        >
-                            <div className="z-0" style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                background: `linear-gradient(to right, ${anime.coverImage.color}, rgba(0, 0, 0, 0.5))`,                                zIndex: 1
-                            }}></div>
-                            <div className=" z-10 relative flex space-x-2 items-center p-2">
-                                <div className="w-1/2 md:w-1/3 ">
-                                    <img className="  h-full  object-cover shadow-lg" src={anime.coverImage.large} alt={anime.title.userPreferred} />
-                                    
-                                </div>
-                                <div className="w-1/2 md:w-2/3  text-white">
-                                    <p className=" font-extrabold   drop-shadow truncate-2-lines">{anime.title.english}</p>
-                                    
-                                    <div className="flex space-x-2  items-center drop-shadow text-yellow-400">
-                                        <div className="text-sm font-custom items-center flex"><FaHashtag className='size-2 font-bold' /> {index + 1}</div>
-                                        <div className="p-1 rounded-lg text-sm font-custom font-bold tracking-wider text-blue-300">EP {anime.episodes}</div>
-                                        <div className="p-1 rounded-lg text-sm font-custom font-bold tracking-wider text-violet-300">
-                                            {anime.format}
-                                        </div>
-                                    </div>
-                                    <div className="overflow-y-auto h-40">
-                                    <p className="text-sm mt-2 indent-7">{anime.description.replace(/<[^>]*>/g, '')}</p>
+                        <div>
+                    <h2 id="latest" className="text-lg font-semibold mb-4 font-custom tracking-widest">Most <span className='text-violet-300'>Popular</span></h2>
+                    <Swiper
+                        modules={[Pagination]}
+                        spaceBetween={20}
+                        slidesPerView={1}
+                        pagination={{ clickable: true, dynamicBullets: true }}
+                        className="mySwiper"
+                    >
+                        {aniList.map((anime, index) => (
+                            <SwiperSlide key={index}>
+                                <Link to={`/anime/${formatTitle(anime.title.userPreferred)}`} className="block">
+                                    <motion.div
+                                        className="relative bg-zinc-900 mb-9  overflow-hidden"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 2, delay: index * 0.1 }}
+                                        style={{ backgroundImage: `url(${anime.bannerImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                                    >
+                                        <div className="z-0" style={{
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                            right: 0,
+                                            bottom: 0,
+                                            background: `linear-gradient(to right, ${anime.coverImage.color}, rgba(0, 0, 0, 0.5))`,                                zIndex: 1
+                                        }}></div>
+                                        <div className=" z-10 relative flex space-x-2 items-center p-2">
+                                            <div className="w-1/2 md:w-1/3 ">
+                                                <img className="  h-full  object-cover shadow-lg" src={anime.coverImage.large} alt={anime.title.userPreferred} />
+                                                
+                                            </div>
+                                            <div className="w-1/2 md:w-2/3  text-white">
+                                                <p className=" font-extrabold   drop-shadow truncate-2-lines">{anime.title.english}</p>
+                                                
+                                                <div className="flex space-x-2  items-center drop-shadow text-yellow-400">
+                                                    <div className="text-sm font-custom items-center flex"><FaHashtag className='size-2 font-bold' /> {index + 1}</div>
+                                                    <div className="p-1 rounded-lg text-sm font-custom font-bold tracking-wider text-blue-300">EP {anime.episodes}</div>
+                                                    <div className="p-1 rounded-lg text-sm font-custom font-bold tracking-wider text-violet-300">
+                                                        {anime.format}
+                                                    </div>
+                                                </div>
+                                                <div className="overflow-y-auto h-40">
+                                                <p className="text-sm mt-2 indent-7">{anime.description.replace(/<[^>]*>/g, '')}</p>
 
-                                    </div>
-                                    <button className="mt-2 shadow-mdw p-2 w-full flex  justify-center items-center font-bold text-white hover:bg-white hover:text-violet-600 transition-colors duration-300 ease-in-out transform "
-                                    style={{
-                                        background: anime.coverImage.color,
-                                    }}>
-                                        <span className='drop-shadow-sm font-custom tracking-wider'>Watch Now</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </Link>
-                </SwiperSlide>
-            ))}
-        </Swiper>
-    </div>
-</section>
+                                                </div>
+                                                <button className="mt-2 shadow-mdw p-2 w-full flex  justify-center items-center font-bold text-white hover:bg-white hover:text-violet-600 transition-colors duration-300 ease-in-out transform "
+                                                style={{
+                                                    background: anime.coverImage.color,
+                                                }}>
+                                                    <span className='drop-shadow-sm font-custom tracking-wider'>Watch Now</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </Link>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
+            </section>
 
 
 
@@ -438,11 +438,7 @@ function Home() {
                     
                 </div>
             )}
-            <footer className="p-4 text-center">
-                <div>
-                    {/* Footer Content */}
-                </div>
-            </footer>
+            
         </div>
         <Footer />
         </>

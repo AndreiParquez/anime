@@ -52,7 +52,7 @@ const Navbar = ({ toggleLoginModal }) => {
                             onClick={handleSearchClick}
                             className='flex items-center text-white'
                         >
-                            <FaSearch className='size-6 rounded-full bg bg-zinc-900 bg-opacity-55 text-violet-500 drop-shadow-sm' />
+                            <FaSearch className='size-6 rounded-full bg bg-zinc-900 bg-opacity-55 p-2 text-violet-500 drop-shadow-sm' />
                         </button>
                     ) : (
                         <div id="search-div" className='relative '>
@@ -68,9 +68,9 @@ const Navbar = ({ toggleLoginModal }) => {
                                 <button
                                     name="search"
                                     type="submit"
-                                    className='absolute right-1 top-1/2 transform -translate-y-1/2'
+                                    className='absolute text-zinc-400 right-1 top-1/2 transform -translate-y-1/2'
                                 >
-                                    <IoSearchCircle className='size-9 text-violet-500' />
+                                         <FaSearch className='size-6 rounded-full bg bg-zinc-900 bg-opacity-55 p-2 text-violet-500 drop-shadow-sm' />
                                 </button>
                             </form>
                         </div>
