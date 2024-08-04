@@ -21,7 +21,7 @@ const IndexApi = "/home";
 const recentapi = "/recent/";
 const upcommingapi = "/upcoming/";
 
-const AvailableServers = ['https://anime1.jackparquez1.workers.dev'];
+const AvailableServers = ['https://f.jackparquez1.workers.dev','https://g.jackparquez1.workers.dev','https://h.jackparquez1.workers.dev','https://i.jackparquez1.workers.dev'];
 function getApiServer() {
     return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
 }

@@ -12,7 +12,7 @@ import { IoArrowRedoSharp } from "react-icons/io5";
 
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const episodeapi = "/episode/";
-const AvailableServers = ['https://1.jackparquez1.workers.dev'];
+const AvailableServers = ['https://f.jackparquez1.workers.dev','https://g.jackparquez1.workers.dev','https://h.jackparquez1.workers.dev','https://i.jackparquez1.workers.dev'];
 
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
