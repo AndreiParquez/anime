@@ -52,7 +52,7 @@ const Navbar = ({ toggleLoginModal }) => {
                             onClick={handleSearchClick}
                             className='flex items-center text-white'
                         >
-                            <FaSearch className='size-6 rounded-full bg bg-zinc-900 bg-opacity-55 p-2 text-violet-500 drop-shadow-sm' />
+                            <FaSearch className='size-9 rounded-full bg bg-zinc-900 bg-opacity-55 p-2 text-violet-500 drop-shadow-sm' />
                         </button>
                     ) : (
                         <div id="search-div" className='relative '>
@@ -70,7 +70,7 @@ const Navbar = ({ toggleLoginModal }) => {
                                     type="submit"
                                     className='absolute text-zinc-400 right-1 top-1/2 transform -translate-y-1/2'
                                 >
-                                         <FaSearch className='size-6 rounded-full bg bg-zinc-900 bg-opacity-55 p-2 text-violet-500 drop-shadow-sm' />
+                                         <FaSearch className='size-9 rounded-full bg bg-zinc-900 bg-opacity-55 p-2 text-violet-500 drop-shadow-sm' />
                                 </button>
                             </form>
                         </div>
@@ -79,7 +79,15 @@ const Navbar = ({ toggleLoginModal }) => {
             </div>
             <div className={`fixed top-0 left-0 w-full h-full darkblue flex flex-col justify-center items-start transform ${nav ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-20`}>
                 <div className="nav2 w-full h-full">
-                    Comming Soon
+                    <div className="flex flex-col  justify-center h-full">
+                        <Link to="/" onClick={closeNav} className="">Home</Link>
+                        <Link to="/anime" onClick={closeNav} className="nav-link">Anime</Link>
+                        <Link to="/manga" onClick={closeNav} className="nav-link">Manga</Link>
+                        <Link to="/favorites" onClick={closeNav} className="nav-link">Favorites</Link>
+                        <Link to="/about" onClick={closeNav} className="nav-link">About</Link>
+                    </div>
+
+                    
                 </div>
             </div>
         </div>
