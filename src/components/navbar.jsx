@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../assets/hxh.png';
 import { IoSearchCircle } from "react-icons/io5";
 import { Link } from 'react-router-dom';
+import { FaSearch } from "react-icons/fa";
+import { Fa0 } from 'react-icons/fa6';
 
 const Navbar = ({ toggleLoginModal }) => {
     const [nav, setNav] = useState(false);
@@ -50,7 +52,7 @@ const Navbar = ({ toggleLoginModal }) => {
                             onClick={handleSearchClick}
                             className='flex items-center text-white'
                         >
-                            <IoSearchCircle className='size-9 text-violet-500 drop-shadow-sm' />
+                            <FaSearch className='size-9 text-violet-500 drop-shadow-sm' />
                         </button>
                     ) : (
                         <div id="search-div" className='relative '>
@@ -76,7 +78,9 @@ const Navbar = ({ toggleLoginModal }) => {
                 </div>
             </div>
             <div className={`fixed top-0 left-0 w-full h-full darkblue flex flex-col justify-center items-start transform ${nav ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-20`}>
-                <div className="nav2 w-full h-full"></div>
+                <div className="nav2 w-full h-full">
+                    Comming Soon
+                </div>
             </div>
         </div>
     );

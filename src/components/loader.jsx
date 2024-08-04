@@ -22,7 +22,7 @@ const Loader = () => {
         Loading...
       </motion.div>
       <div
-        className="text-xs font-bold w-2/3 text-center text-zinc-400 "
+        className="text-xs font-bold w-2/3 text-center mt-2 text-zinc-400 "
         animate={{ opacity: [0, 1, 0] }}
         transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
       >
