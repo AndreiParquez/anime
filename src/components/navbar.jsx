@@ -63,7 +63,7 @@ const Navbar = ({ toggleLoginModal }) => {
                                     id="query"
                                     placeholder="Search"
                                     required
-                                    className='bg-zinc-700 bg-opacity-60 pl-1 pr-4 py-2 placeholder:font-semibold placeholder:text-center placeholder:text-violet-300 text-center rounded-3xl'
+                                    className='bg-zinc-700 bg-opacity-60 pl-1 pr-4 py-2 placeholder:font-semibold placeholder:text-center placeholder:text-violet-300 placeholder:text-sm text-sm text-center rounded-3xl'
                                 />
                                 <button
                                     name="search"
@@ -77,14 +77,15 @@ const Navbar = ({ toggleLoginModal }) => {
                     )}
                 </div>
             </div>
-            <div className={`fixed top-0 left-0 w-full h-full darkblue flex flex-col justify-center items-start transform ${nav ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-20`}>
-                <div className="nav2 w-full h-full">
-                    <div className="flex flex-col  justify-center h-full">
-                        <Link to="/" onClick={closeNav} className="">Home</Link>
-                        <Link to="/anime" onClick={closeNav} className="nav-link">Anime</Link>
-                        <Link to="/manga" onClick={closeNav} className="nav-link">Manga</Link>
-                        <Link to="/favorites" onClick={closeNav} className="nav-link">Favorites</Link>
-                        <Link to="/about" onClick={closeNav} className="nav-link">About</Link>
+            <div className={`fixed top-0 left-0 w-full h-full darkblue flex flex-col justify-center  transform ${nav ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-20`}>
+                <div className="nav2 w-full h-full pt-12 p-4">
+                    <p className='text-xs text-zinc-400'>BROWSE</p>
+                    <div className="flex flex-col  mt-2   h-full">
+                        <Link to="/" onClick={closeNav} className="border-l-4 bg-zinc-800 bg-opacity-50 border-violet-400 text-violet-400  py-3 font-custom tracking-widest px-10">Home</Link>
+                        <Link to="/anime" onClick={closeNav} className=" bg-opacity-50 py-4 font-custom tracking-widest px-10">Anime</Link>
+                        <Link to="/manga" onClick={closeNav} className=" bg-opacity-50 py-4 font-custom tracking-widest px-10">Manga</Link>
+                        <Link to="/favorites" onClick={closeNav} className=" bg-opacity-50 py-4 font-custom tracking-widest px-10">Favorites</Link>
+                        <Link to="/about" onClick={closeNav} className=" bg-opacity-50 py-4 font-custom tracking-widest px-10">About</Link>
                     </div>
 
                     
