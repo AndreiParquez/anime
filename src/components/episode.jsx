@@ -7,10 +7,12 @@ import { IoIosWarning } from "react-icons/io";
 import Loader from './loader';
 import { motion } from 'framer-motion';
 import Footer from './footer';
+import { IoArrowUndo } from "react-icons/io5";
+import { IoArrowRedoSharp } from "react-icons/io5";
 
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const episodeapi = "/episode/";
-const AvailableServers = ['https://a.jackparquez1.workers.dev','https://b.jackparquez1.workers.dev','https://c.jackparquez1.workers.dev','https://d.jackparquez1.workers.dev'];
+const AvailableServers = ['https://1.jackparquez1.workers.dev'];
 
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
@@ -21,31 +23,31 @@ async function getJson(path, errCount = 0) {
   let url = ApiServer + path;
 
   if (errCount > 2) {
-      throw new Error(`Too many errors while fetching ${url}`);
+    throw new Error(`Too many errors while fetching ${url}`);
   }
 
   if (errCount > 0) {
-      console.log("Retrying fetch using proxy");
-      url = ProxyApi + encodeURIComponent(url);  // Encode URL for safety
+    console.log("Retrying fetch using proxy");
+    url = ProxyApi + encodeURIComponent(url);  // Encode URL for safety
   }
 
   try {
-      const response = await fetch(url);
-      if (!response.ok) {
-          throw new Error(`Network response was not ok ${response.statusText}`);
-      }
-      return await response.json();
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Network response was not ok ${response.statusText}`);
+    }
+    return await response.json();
   } catch (errors) {
-      console.error(errors);
-      await new Promise(resolve => setTimeout(resolve, 2000));  // Add a delay before retrying
-      return getJson(path, errCount + 1);
+    console.error(errors);
+    await new Promise(resolve => setTimeout(resolve, 2000));  // Add a delay before retrying
+    return getJson(path, errCount + 1);
   }
 }
 
 const EpisodePage = () => {
   const { id, episode_id } = useParams();
   const location = useLocation();
-  const { animeData, totalEpisodes,idfromprev,namefromprev } = location.state || {}; // Destructure the totalEpisodes
+  const { animeData, totalEpisodes, idfromprev, namefromprev } = location.state || {}; // Destructure the totalEpisodes
 
   const [episodeData, setEpisodeData] = useState(null);
   const [error, setError] = useState(null);
@@ -56,6 +58,7 @@ const EpisodePage = () => {
     window.scrollTo(0, 0);
     const loadEpisodeData = async () => {
       try {
+        setLoading(true);
         const episodeResponse = await getJson(episodeapi + episode_id);
         console.log('Episode data:', episodeResponse);
 
@@ -80,15 +83,33 @@ const EpisodePage = () => {
     }
   }, [episode_id]);
 
- 
+  const getCurrentEpisodeNumber = () => {
+    const match = episode_id.match(/-episode-(\d+)$/);
+    return match ? parseInt(match[1], 10) : null;
+  };
 
   const handleEpisodeClick = (episodeNumber) => {
-    
+    setLoading(true);
     navigate(`/episode/${idfromprev}/${idfromprev}-episode-${episodeNumber}`, {
-      state: { animeData, totalEpisodes,idfromprev }
+      state: { animeData, totalEpisodes, idfromprev }
     });
-    console.log('id from prev:' + idfromprev);
   };
+
+  const handleNextEpisode = () => {
+    const currentEpisodeNumber = getCurrentEpisodeNumber();
+    if (currentEpisodeNumber < totalEpisodes) {
+      handleEpisodeClick(currentEpisodeNumber + 1);
+    }
+  };
+
+  const handlePrevEpisode = () => {
+    const currentEpisodeNumber = getCurrentEpisodeNumber();
+    if (currentEpisodeNumber > 1) {
+      handleEpisodeClick(currentEpisodeNumber - 1);
+    }
+  };
+
+  const currentEpisodeNumber = getCurrentEpisodeNumber();
 
   if (loading) return <div><Loader /></div>;
 
@@ -117,42 +138,34 @@ const EpisodePage = () => {
               {episodeData.stream && episodeData.stream.sources && episodeData.stream.sources.length > 0 ? (
                 <VideoPlayer source={episodeData.stream.sources[0].file} id={episode_id} />
               ) : (
-                <div className='h-64 flex  items-center' >
-                  <p className='text-white text-sm mx-8'>No video source available, please try to click episode in the main anime page.
-                  </p>
-
+                <div className='h-64 flex items-center'>
+                  <p className='text-white text-sm mx-8'>No video source available, please try to click episode in the main anime page.</p>
                 </div>
-                
               )}
-              <div className="px-auto text-center">
+              <div className="px-auto mt-6 mb-2 text-center">
                 <p className='text-violet-400 font-custom'>You are watching...</p>
                 <p className='text-base font-bold text-gray-300'>{episodeData.name}</p>
               </div>
               <p className='text-center text-xs text-zinc-600 font-semibold'>Refresh the page if video is not working properly.</p>
-              {totalEpisodes && !isNaN(parseInt(totalEpisodes)) ? (
-                <section id="watch">
-                  <div className="episode-container px-4 py-2">
-                    <h1 className="text-base font-bold text-gray-300">Episodes:</h1>
-                    <div className="font-bold mt-1 grid grid-cols-6 px-3 gap-2 py-2 rounded sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-12">
-                      {Array.from({ length: parseInt(totalEpisodes) }).map((_, index) => {
-                        const episodeNumber = index + 1;
-                        const isActive = episodeNumber === parseInt(episode_id.split('-').pop());
-                        return (
-                          <button
-                            key={episodeNumber}
-                            className={`w-12 h-12 text-white rounded flex items-center justify-center ${isActive ? 'bg-violet-500' : 'bg-zinc-800'}`}
-                            onClick={() => handleEpisodeClick(episodeNumber)}
-                          >
-                            {episodeNumber}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </section>
-              ) : (
-                <div className='text-white'>No episodes available</div>
-              )}
+              <div className="flex justify-center space-x-4 mt-4 mb-6">
+                <button
+                  onClick={handlePrevEpisode}
+                  disabled={currentEpisodeNumber <= 1}
+                  className={`bg-violet-400 px-3 font-custom tracking-widest text-sm  text-white rounded flex items-center justify-center ${currentEpisodeNumber <= 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                >
+                  <IoArrowUndo className='mr-1'/>
+                  Prev episode
+                </button>
+                <button
+                  onClick={handleNextEpisode}
+                  disabled={currentEpisodeNumber >= totalEpisodes}
+                  className={`bg-violet-400 text-sm px-4 py-2 font-custom tracking-widest text-white rounded flex items-center justify-center ${currentEpisodeNumber >= totalEpisodes ? 'opacity-50 cursor-not-allowed' : ''}`}
+                >
+                 
+                  Next episode
+                  <IoArrowRedoSharp className='ml-1'  />
+                </button>
+              </div>
             </>
           ) : (
             <div className='text-white'>No episode data available</div>

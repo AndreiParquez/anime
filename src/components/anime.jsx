@@ -11,7 +11,7 @@ import Footer from './footer';
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const animeapi = "/anime/";
 const recomendationapi = "/recommendations/";
-const AvailableServers = ['https://a.jackparquez1.workers.dev','https://b.jackparquez1.workers.dev','https://c.jackparquez1.workers.dev','https://d.jackparquez1.workers.dev'];
+const AvailableServers = ['https://bago.jackparquez1.workers.dev'];
 
 function getApiServer() {
   return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
@@ -130,7 +130,8 @@ const AnimePage = () => {
 
   const handleWatchNow = () => {
     if (animeData && animeData.episodes.length > 0) {
-      handleEpisodeClick(id + '-episode-1');
+      const firstEpisodeLink = animeData.episodes[0].link;
+      handleEpisodeClick(firstEpisodeLink);
     }
   };
 
