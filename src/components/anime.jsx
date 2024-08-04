@@ -141,7 +141,7 @@ const AnimePage = () => {
 
   if (error) {
     return (
-      <div className="h-screen flex flex-col justify-center">
+      <div className="h-screen text-sm text-zinc-400 flex flex-col justify-center">
         <Errorpage message={error} />
       </div>
     );

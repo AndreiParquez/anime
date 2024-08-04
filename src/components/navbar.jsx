@@ -52,7 +52,7 @@ const Navbar = ({ toggleLoginModal }) => {
                             onClick={handleSearchClick}
                             className='flex items-center text-white'
                         >
-                            <FaSearch className='size-9 text-violet-500 drop-shadow-sm' />
+                            <FaSearch className='size-6 rounded-full bg bg-zinc-900 bg-opacity-55 text-violet-500 drop-shadow-sm' />
                         </button>
                     ) : (
                         <div id="search-div" className='relative '>

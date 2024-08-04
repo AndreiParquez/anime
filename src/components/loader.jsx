@@ -15,7 +15,7 @@ const Loader = () => {
         transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
       />
       <motion.div
-        className="text-base font-bold text-violet-400 font-custom"
+        className="text-base tracking-widest font-bold text-violet-400 font-custom"
         animate={{ opacity: [0, 1, 0] }}
         transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
       >
