@@ -10,7 +10,7 @@ import Footer from './footer';
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const searchapi = "/search/";
 
-const AvailableServers = ['https://f.jackparquez1.workers.dev','https://g.jackparquez1.workers.dev','https://h.jackparquez1.workers.dev','https://i.jackparquez1.workers.dev'];
+const AvailableServers = ['https://a.jackparquez1.workers.dev', 'https://b.jackparquez1.workers.dev','https://c.jackparquez1.workers.dev','https://d.jackparquez1.workers.dev','https://f.jackparquez1.workers.dev','https://g.jackparquez1.workers.dev','https://h.jackparquez1.workers.dev','https://i.jackparquez1.workers.dev'];
 
 function getApiServer() {
     return AvailableServers[Math.floor(Math.random() * AvailableServers.length)];
