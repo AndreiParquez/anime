@@ -15,6 +15,8 @@ import { FaHashtag } from 'react-icons/fa';
 //import { set } from 'video.js/dist/types/tech/middleware';
 import Footer from './footer';
 import { IoMdArrowDropdownCircle } from "react-icons/io";
+import { FaPlayCircle } from "react-icons/fa";
+import { IoIosArrowForward } from "react-icons/io";
 
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const IndexApi = "/home";
@@ -172,7 +174,7 @@ function Home() {
         
         <div className="App bg-zinc-900 px-0 xl:px-56 sm:px-2 lg:px-40 md:px-32 text-white">
         
-            
+            {/*
             <div className="relative flex items-center pt-16" style={{ backgroundImage: `url(${cover})`, backgroundSize: 'cover', height: '300px' }}>
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent"></div>
                 <div className="relative flex items-center w-full justify-center">
@@ -206,9 +208,8 @@ function Home() {
             </div>
 
              {/* Most Popular Carousel */}
-             <section className="p-4">
+             <section className="">
                         <div>
-                    <h2 id="latest" className="text-lg font-semibold mb-4 font-custom tracking-widest">Most <span className='text-violet-300'>Popular</span></h2>
                     <Swiper
                         modules={[Pagination]}
                         spaceBetween={20}
@@ -224,7 +225,7 @@ function Home() {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 2, delay: index * 0.1 }}
-                                        style={{ backgroundImage: `url(${anime.bannerImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                                        style={{ backgroundImage: `url(${anime.coverImage.extraLarge})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                                     >
                                         <div className="z-0" style={{
                                             position: 'absolute',
@@ -232,33 +233,29 @@ function Home() {
                                             left: 0,
                                             right: 0,
                                             bottom: 0,
-                                            background: `linear-gradient(to right, ${anime.coverImage.color}, rgba(0, 0, 0, 0.5))`,                                zIndex: 1
+                                            background: `linear-gradient(to top, #18181B, rgba(0, 0, 0, 0))`,                                zIndex: 1
                                         }}></div>
-                                        <div className=" z-10 relative flex space-x-2 items-center p-2">
-                                            <div className="w-1/2 md:w-1/3 ">
-                                                <img className="  h-full  object-cover shadow-lg" src={anime.coverImage.extraLarge} alt={anime.title.userPreferred} />
-                                                
-                                            </div>
-                                            <div className="w-1/2 md:w-2/3  text-white">
-                                                <p className=" font-extrabold   drop-shadow truncate-2-lines">{anime.title.english}</p>
+
+                                        <div className=" z-10 relative flex space-x-2 items-center ">
+                                            
+
+                                            <div className="  text-white mt-[500px] w-full">
+                                                <p className=" font-extrabold text-2xl  drop-shadow truncate-2-lines text-center">{anime.title.english}</p>
                                                 
                                                 <div className="flex space-x-2  items-center drop-shadow text-yellow-400">
-                                                    <div className="text-sm font-custom items-center flex"><FaHashtag className='size-2 font-bold' /> {index + 1}</div>
-                                                    <div className="p-1 rounded-lg text-sm font-custom font-bold tracking-wider text-blue-300">EP {anime.episodes}</div>
-                                                    <div className="p-1 rounded-lg text-sm font-custom font-bold tracking-wider text-violet-300">
-                                                        {anime.format}
-                                                    </div>
+                                                    
                                                 </div>
-                                                <div className="overflow-y-auto h-40">
-                                                <p className="text-sm mt-2 indent-7">{anime.description.replace(/<[^>]*>/g, '')}</p>
-
-                                                </div>
-                                                <button className="mt-2 shadow-mdw p-2 w-full flex  justify-center items-center font-bold text-white hover:bg-white hover:text-violet-600 transition-colors duration-300 ease-in-out transform "
-                                                style={{
-                                                    background: anime.coverImage.color,
-                                                }}>
-                                                    <span className='drop-shadow-sm font-custom tracking-wider'>Watch Now</span>
+                                                
+                                                <div className="flex space-x-2 mt-2 px-10 justify-center text-zinc-800 mb-5">
+                                                <button className="mt-2 shadow-mdw p-2 flex rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-600 transition-colors duration-300 ease-in-out transform bg-violet-600">
+                                                
+                                                    <span className='drop-shadow-sm flex justify-center items-center  font-custom tracking-wider'><FaPlayCircle className='mr-2 text-2xl'/> Watch Now</span>
                                                 </button>
+                                                <button className="mt-2 shadow-mdw p-2 px-4 flex  rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-600 transition-colors duration-300 ease-in-out transform ring-violet-600 ring-2">
+                                                
+                                                    <span className='drop-shadow-sm font-custom text-violet-600  flex tracking-wider'>Detail <IoIosArrowForward className='text-2xl'/></span>
+                                                </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </motion.div>
