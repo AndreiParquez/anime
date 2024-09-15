@@ -17,6 +17,8 @@ import Footer from './footer';
 import { IoMdArrowDropdownCircle } from "react-icons/io";
 import { FaPlayCircle } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
+import { RiArrowDropRightLine } from "react-icons/ri";
+import { BiRightArrow } from "react-icons/bi";
 
 const ProxyApi = "https://proxy1.jackparquez1.workers.dev/?u=";
 const IndexApi = "/home";
@@ -249,7 +251,7 @@ function Home() {
                                             <div className="  text-white mt-[460px] w-full">
                                                 <p className=" font-extrabold text-xl  drop-shadow truncate-2-lines text-center">{anime.title.english}</p>
                                                 <div className='flex space-x-3 justify-center items-center'>
-                                                <p className='text-zinc-400'>{anime.genres.join(' | ')}</p>   
+                                                <p className='text-zinc-400 font-semibold'>{anime.genres.join(' | ')}</p>   
                                                
                                                 </div>
                                                 <div className='flex space-x-3 font-custom justify-center items-center'>
@@ -260,18 +262,18 @@ function Home() {
                                             
                                                 
                                                 <div className="flex space-x-2  items-center drop-shadow ">
-                                                <p className='line-clamp-2 px-2 text-zinc-300 indent-9'>{stripHtmlTags(anime.description)}</p> 
+                                                <p className='line-clamp-2 px-4 text-zinc-400 indent-9'>{stripHtmlTags(anime.description)}</p> 
                                                                                              
                                                 </div>
                                                 
                                                 <div className="flex space-x-5 mt-2 px-10 justify-center text-sm text-zinc-800 mb-5">
-                                                <button className="mt-2 shadow-mdw p-2  flex rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-300 transition-colors duration-300 ease-in-out transform bg-violet-300">
+                                                <button className="mt-2 shadow-mdw p-2  flex rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-300 transition-colors duration-300 ease-in-out transform " style={{ backgroundColor: `${anime.coverImage.color}` }}>
                                                 
                                                     <span className='drop-shadow-sm flex justify-center items-center  font-custom tracking-wider'><FaPlayCircle className='mr-2 text-2xl'/> Watch Now</span>
                                                 </button>
-                                                <button className="mt-2 shadow-mdw p-2 px-4 flex  rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-300 transition-colors duration-300 ease-in-out transform ring-violet-300 ring-2">
+                                                <button className="mt-2 shadow-mdw p-2 px-4 flex  rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-300 transition-colors duration-300 ease-in-out transform border-2 "   style={{ borderColor: anime.coverImage.color, color: anime.coverImage.color }}>
                                                 
-                                                    <span className='drop-shadow-sm font-custom text-violet-300  flex tracking-wider'>Detail <IoIosArrowForward className='text-2xl font-extrabold'/></span>
+                                                    <span className='drop-shadow-sm font-custom  justify-center items-center flex tracking-wider'>Details <BiRightArrow className='text-xl font-extrabold ml-2'/></span>
                                                 </button>
                                                 </div>
                                             </div>
