@@ -233,27 +233,29 @@ function Home() {
                                             left: 0,
                                             right: 0,
                                             bottom: 0,
-                                            background: `linear-gradient(to top, #18181B, rgba(0, 0, 0, 0))`,                                zIndex: 1
+                                            background: `linear-gradient(to top, #18181B 8%, rgba(0, 0, 0, 0.1) 75%)`,
+                                            zIndex: 1
                                         }}></div>
+
 
                                         <div className=" z-10 relative flex space-x-2 items-center ">
                                             
 
-                                            <div className="  text-white mt-[500px] w-full">
-                                                <p className=" font-extrabold text-2xl  drop-shadow truncate-2-lines text-center">{anime.title.english}</p>
+                                            <div className="  text-white mt-[460px] w-full">
+                                                <p className=" font-extrabold text-xl  drop-shadow truncate-2-lines text-center">{anime.title.english}</p>
                                                 
                                                 <div className="flex space-x-2  items-center drop-shadow text-yellow-400">
                                                     
                                                 </div>
                                                 
                                                 <div className="flex space-x-2 mt-2 px-10 justify-center text-zinc-800 mb-5">
-                                                <button className="mt-2 shadow-mdw p-2 flex rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-600 transition-colors duration-300 ease-in-out transform bg-violet-600">
+                                                <button className="mt-2 shadow-mdw p-2 flex rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-500 transition-colors duration-300 ease-in-out transform bg-violet-500">
                                                 
                                                     <span className='drop-shadow-sm flex justify-center items-center  font-custom tracking-wider'><FaPlayCircle className='mr-2 text-2xl'/> Watch Now</span>
                                                 </button>
-                                                <button className="mt-2 shadow-mdw p-2 px-4 flex  rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-600 transition-colors duration-300 ease-in-out transform ring-violet-600 ring-2">
+                                                <button className="mt-2 shadow-mdw p-2 px-4 flex  rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-500 transition-colors duration-300 ease-in-out transform ring-violet-500 ring-2">
                                                 
-                                                    <span className='drop-shadow-sm font-custom text-violet-600  flex tracking-wider'>Detail <IoIosArrowForward className='text-2xl'/></span>
+                                                    <span className='drop-shadow-sm font-custom text-violet-500  flex tracking-wider'>Detail <IoIosArrowForward className='text-2xl'/></span>
                                                 </button>
                                                 </div>
                                             </div>
