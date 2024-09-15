@@ -236,7 +236,7 @@ function Home() {
                                         }}></div>
                                         <div className=" z-10 relative flex space-x-2 items-center p-2">
                                             <div className="w-1/2 md:w-1/3 ">
-                                                <img className="  h-full  object-cover shadow-lg" src={anime.coverImage.large} alt={anime.title.userPreferred} />
+                                                <img className="  h-full  object-cover shadow-lg" src={anime.coverImage.extraLarge} alt={anime.title.userPreferred} />
                                                 
                                             </div>
                                             <div className="w-1/2 md:w-2/3  text-white">
