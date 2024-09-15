@@ -249,20 +249,20 @@ function Home() {
                                             
 
                                             <div className="  text-white mt-[460px] w-full">
-                                                <p className=" font-extrabold text-xl  drop-shadow truncate-2-lines text-center">{anime.title.english}</p>
+                                                <p className=" font-extrabold text-xl  drop-shadow truncate-2-lines px-4 text-center">{anime.title.english}</p>
                                                 <div className='flex space-x-3 justify-center items-center'>
-                                                <p className='text-zinc-400 font-semibold'>{anime.genres.join(' | ')}</p>   
+                                                <p className='text-zinc-400 text-sm font-bold tracking-wider truncate'>{anime.genres.join(' | ')}</p>   
                                                
                                                 </div>
-                                                <div className='flex space-x-3 font-custom justify-center items-center'>
+                                                <div className='flex space-x-3 my-1 font-custom justify-center items-center'>
                                                 <p className='text-red-300'>{anime.episodes}</p>  
                                                 <p className='font-extrabold'>●</p> 
-                                                <p className='text-violet-300'>{anime.status}</p> 
+                                                <p className='' style={{ color: `${anime.coverImage.color}` }}>{anime.status}</p> 
                                                 </div>
                                             
                                                 
                                                 <div className="flex space-x-2  items-center drop-shadow ">
-                                                <p className='line-clamp-2 px-4 text-zinc-400 indent-9'>{stripHtmlTags(anime.description)}</p> 
+                                                <p className='line-clamp-2 px-4 text-zinc-500 font-semibold indent-9'>{stripHtmlTags(anime.description)}</p> 
                                                                                              
                                                 </div>
                                                 
