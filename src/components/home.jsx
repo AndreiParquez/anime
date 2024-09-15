@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import { Pagination, Autoplay } from 'swiper/modules';
 import { FaHashtag } from 'react-icons/fa';
 //import { set } from 'video.js/dist/types/tech/middleware';
 import Footer from './footer';
@@ -165,6 +165,10 @@ function Home() {
     };
 
     const displayedAnimes = showAll ? upcommingAnimes : upcommingAnimes.slice(0, 5);
+    const stripHtmlTags = (html) => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || "";
+      };
       
     
 
@@ -211,10 +215,11 @@ function Home() {
              <section className="">
                         <div>
                     <Swiper
-                        modules={[Pagination]}
+                        modules={[Pagination, Autoplay]}
                         spaceBetween={20}
                         slidesPerView={1}
                         pagination={{ clickable: true, dynamicBullets: true }}
+                        autoplay={{ delay: 3000, disableOnInteraction: false }}
                         className="mySwiper"
                     >
                         {aniList.map((anime, index) => (
@@ -243,19 +248,30 @@ function Home() {
 
                                             <div className="  text-white mt-[460px] w-full">
                                                 <p className=" font-extrabold text-xl  drop-shadow truncate-2-lines text-center">{anime.title.english}</p>
+                                                <div className='flex space-x-3 justify-center items-center'>
+                                                <p className='text-zinc-400'>{anime.genres.join(' | ')}</p>   
+                                               
+                                                </div>
+                                                <div className='flex space-x-3 font-custom justify-center items-center'>
+                                                <p className='text-red-300'>{anime.episodes}</p>  
+                                                <p className='font-extrabold'>●</p> 
+                                                <p className='text-violet-300'>{anime.status}</p> 
+                                                </div>
+                                            
                                                 
-                                                <div className="flex space-x-2  items-center drop-shadow text-yellow-400">
-                                                    
+                                                <div className="flex space-x-2  items-center drop-shadow ">
+                                                <p className='line-clamp-2 px-2 text-zinc-300 indent-9'>{stripHtmlTags(anime.description)}</p> 
+                                                                                             
                                                 </div>
                                                 
-                                                <div className="flex space-x-2 mt-2 px-10 justify-center text-zinc-800 mb-5">
-                                                <button className="mt-2 shadow-mdw p-2 flex rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-500 transition-colors duration-300 ease-in-out transform bg-violet-500">
+                                                <div className="flex space-x-5 mt-2 px-10 justify-center text-sm text-zinc-800 mb-5">
+                                                <button className="mt-2 shadow-mdw p-2  flex rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-300 transition-colors duration-300 ease-in-out transform bg-violet-300">
                                                 
                                                     <span className='drop-shadow-sm flex justify-center items-center  font-custom tracking-wider'><FaPlayCircle className='mr-2 text-2xl'/> Watch Now</span>
                                                 </button>
-                                                <button className="mt-2 shadow-mdw p-2 px-4 flex  rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-500 transition-colors duration-300 ease-in-out transform ring-violet-500 ring-2">
+                                                <button className="mt-2 shadow-mdw p-2 px-4 flex  rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-300 transition-colors duration-300 ease-in-out transform ring-violet-300 ring-2">
                                                 
-                                                    <span className='drop-shadow-sm font-custom text-violet-500  flex tracking-wider'>Detail <IoIosArrowForward className='text-2xl'/></span>
+                                                    <span className='drop-shadow-sm font-custom text-violet-300  flex tracking-wider'>Detail <IoIosArrowForward className='text-2xl font-extrabold'/></span>
                                                 </button>
                                                 </div>
                                             </div>
