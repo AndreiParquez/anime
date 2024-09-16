@@ -226,7 +226,7 @@ function Home() {
                     >
                         {aniList.map((anime, index) => (
                             <SwiperSlide key={index}>
-                                <Link to={`/anime/${formatTitle(anime.title.userPreferred)}`} className="block">
+                                <Link to={`/anime/${formatTitle(anime.title.english)}`} className="block">
                                     <motion.div
                                         className="relative bg-zinc-900 mb-9  overflow-hidden"
                                         initial={{ opacity: 0, y: 20 }}
@@ -255,23 +255,23 @@ function Home() {
                                                
                                                 </div>
                                                 <div className='flex space-x-3 my-1 font-custom justify-center items-center'>
-                                                <p className='text-red-300'>{anime.episodes}</p>  
-                                                <p className='font-extrabold'>●</p> 
+                                                <p className='' style={{ color: `${anime.coverImage.color}` }}>{anime.episodes}</p>  
+                                                <p className='font-extrabold text-zinc-400' >●</p> 
                                                 <p className='' style={{ color: `${anime.coverImage.color}` }}>{anime.status}</p> 
                                                 </div>
                                             
                                                 
                                                 <div className="flex space-x-2  items-center drop-shadow ">
-                                                <p className='line-clamp-2 px-4 text-zinc-500 font-semibold indent-9'>{stripHtmlTags(anime.description)}</p> 
+                                                <p className='line-clamp-2 px-4 text-zinc-500 text-sm font-semibold indent-9'>{stripHtmlTags(anime.description)}</p> 
                                                                                              
                                                 </div>
                                                 
                                                 <div className="flex space-x-5 mt-2 px-10 justify-center text-sm text-zinc-800 mb-5">
-                                                <button className="mt-2 shadow-mdw p-2  flex rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-300 transition-colors duration-300 ease-in-out transform " style={{ backgroundColor: `${anime.coverImage.color}` }}>
+                                                <button className="mt-2 shadow-mdw p-2  flex rounded-full justify-center items-center font-bold  hover:bg-zinc-700 hover:text-violet-300 transition-colors duration-300 ease-in-out transform " style={{ backgroundColor: `${anime.coverImage.color}` }}>
                                                 
                                                     <span className='drop-shadow-sm flex justify-center items-center  font-custom tracking-wider'><FaPlayCircle className='mr-2 text-2xl'/> Watch Now</span>
                                                 </button>
-                                                <button className="mt-2 shadow-mdw p-2 px-4 flex  rounded-full justify-center items-center font-bold  hover:bg-white hover:text-violet-300 transition-colors duration-300 ease-in-out transform border-2 "   style={{ borderColor: anime.coverImage.color, color: anime.coverImage.color }}>
+                                                <button className="mt-2 shadow-mdw p-2 px-4 flex  rounded-full justify-center items-center font-bold  hover:bg-zinc-700 hover:text-violet-300 transition-colors duration-300 ease-in-out transform border-2 "   style={{ borderColor: anime.coverImage.color, color: anime.coverImage.color }}>
                                                 
                                                     <span className='drop-shadow-sm font-custom  justify-center items-center flex tracking-wider'>Details <BiRightArrow className='text-xl font-extrabold ml-2'/></span>
                                                 </button>
@@ -293,10 +293,11 @@ function Home() {
                 <div>
                     <h2 id="latest" className="text-lg font-semibold mb-4 font-custom tracking-widest">Trending <span className='text-yellow-300'>Now</span></h2>
                     <Swiper
-                        modules={[Pagination]}
+                        modules={[Pagination, Autoplay]}
                         spaceBetween={20}
                         slidesPerView={2}
                         pagination={{ clickable: true, dynamicBullets: true }}
+                        autoplay={{ delay: 2000, disableOnInteraction: false }}
                         breakpoints={{
                             1024: {
                                 slidesPerView: 4,

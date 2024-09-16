@@ -33,7 +33,7 @@ const Navbar = ({ toggleLoginModal }) => {
 
     return (
         <div className='fixed top-0 left-0 w-full nav text-white z-50'>
-            <div className='flex md:justify-between items-center justify-between md:px-10 h-16 mx-auto px-2'>
+            <div className='flex md:justify-between bg-zinc-900 items-center justify-between md:px-10 h-16 mx-auto px-2'>
                 <div onClick={toggleNav} className='md:hidden z-30'>
                     {nav ? <AiOutlineClose size={30} className='text-violet-400 drop-shadow-lg' /> : <IoMenu size={30} className='drop-shadow-lg text-violet-400 icon' />}
                 </div>
